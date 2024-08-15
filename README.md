@@ -1,4 +1,4 @@
-# Grocesries-List
+# Groceries-List
 
 ## In a Nutshell
 
