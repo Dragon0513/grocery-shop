@@ -8,13 +8,13 @@
         <link rel="stylesheet" href="{% static 'css/global.css' %}">
         <link rel="stylesheet" href="{% static 'css/components/header.css' %}">
         <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
         <title>{% translate 'Home' %}</title>
     </head>
     <body>
         {% include 'components/header/system.html' %}
         <main>
-            {% include 'components/cards/legal.html' %}
+            {% include 'components/cards/privacy.html' %}
+            {% include 'components/cards/legal.html' with page="legal" %}
         </main>
-        {% include 'components/footer/system.html' with page="home" %}
+        {% include 'components/footer/system.html' %}
     </body>

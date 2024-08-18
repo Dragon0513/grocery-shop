@@ -1,0 +1,67 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="header">
+        <h1>{% translate 'Nutzungsrichtlinien' %}</h1>
+    </div>
+    <div class="main legalify">
+        <p>
+            <span class="bold">{% translate '1. Allgemeine Grundsätze' %}</span><br>
+            {% translate 'Diese Webseite ist ein schulisches Projekt und dient ausschliesslich zu Bildungszwecken. Die Nutzung der Webseite unterliegt diesen Nutzungsrichtlinien, die jederzeit von den Verantwortlichen angepasst werden können. Mit der Nutzung der Webseite stimmen Sie diesen Nutzungsrichtlinien zu.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '2. Verhaltensregeln' %}</span><br>
+           {% translate 'Um eine sichere und respektvolle Umgebung für alle Benutzer zu gewährleisten, sind die folgenden Verhaltensweisen auf dieser Webseite strengstens untersagt:' %}<br>
+            <span class="bold">- {% translate 'Missbrauch von Privilegien (ABUSE)' %}:</span> {% translate 'Jede Form der ungerechtfertigten Ausnutzung von Rechten oder Zugriffsrechten auf dieser Webseite.' %}<br>
+            <span class="bold">- {% translate 'Antisemitismus (ANTISEMITISM)' %}:</span> {% translate 'Jegliche Form von antisemitischer Äusserung oder Handlung.' %}<br>
+            <span class="bold">- {% translate 'Erpressung (BLACKMAILING)' %}:</span> {% translate 'Jede Handlung, bei der eine Person durch Androhung von Nachteilen zu etwas gezwungen wird.' %}<br>
+            <span class="bold">- {% translate 'Cybermobbing (BULLYING)' %}:</span> {% translate 'Belästigung oder Mobbing anderer Benutzer durch verletzende oder beleidigende Inhalte.' %}<br>
+            <span class="bold">- {% translate 'Christophobie (CHRISTOPHOBIA)' %}:</span> {% translate 'Feindseligkeit oder Vorurteile gegenüber Christen oder dem Christentum.' %}<br>
+            <span class="bold">- {% translate 'Unangemessene Wortwahl (COW)' %}:</span> {% translate 'Verwendung von unhöflichen, beleidigenden oder unangemessenen Ausdrücken.' %}<br>
+            <span class="bold">- {% translate 'Diskriminierung (DISCRIMINATION)' %}:</span> {% translate 'Benachteiligung oder Herabwürdigung von Personen aufgrund von Geschlecht, Rasse, Religion, sexueller Orientierung oder anderen persönlichen Merkmalen.' %}<br>
+            <span class="bold">- {% translate 'Doxxing (DOXXING)' %}:</span> {% translate 'Veröffentlichung oder Weitergabe von privaten Informationen ohne Zustimmung der betroffenen Person.' %}<br>
+            <span class="bold">- {% translate 'Ausbeuterische Inhalte (EXPLOITATIVE_CONTENT)' %}:</span> {% translate 'Inhalte, die auf die Ausbeutung von Menschen oder Tieren abzielen.' %}<br>
+            <span class="bold">- {% translate 'Faschismus (FACISM)' %}:</span> {% translate 'Förderung oder Verbreitung faschistischer Ideologien.' %}<br>
+            <span class="bold">- {% translate 'Cybergrooming (GROOMING)' %}:</span> {% translate 'Versuche, Kinder online zu manipulieren oder zu missbrauchen.' %}<br>
+            <span class="bold">- {% translate 'Belästigung (HARASSMENT)' %}:</span> {% translate 'Unangemessene Annäherung, Kontaktaufnahme oder Nachstellungen.' %}<br>
+            <span class="bold">- {% translate 'Hassrede (HATESPEECH)' %}:</span> {% translate 'Äusserungen, die zu Hass oder Gewalt gegen bestimmte Gruppen aufrufen.' %}<br>
+            <span class="bold">- {% translate 'Homophobie (HOMOPHOBIA)' %}:</span> {% translate 'Feindseligkeit oder Vorurteile gegenüber homosexuellen Personen.' %}<br>
+            <span class="bold">- {% translate 'Illegale Inhalte (ILLEGAL_CONTENT)' %}:</span> {% translate 'Verbreitung oder Bereitstellung von Inhalten, die gegen geltendes Recht verstossen.' %}<br>
+            <span class="bold">- {% translate 'Islamophobie (ISLAMOPHOBIA)' %}:</span> {% translate 'Feindseligkeit oder Vorurteile gegenüber Muslimen oder dem Islam.' %}<br>
+            <span class="bold">- {% translate 'Falschinformationen (MISINFORMATION)' %}:</span> {% translate 'Verbreitung von falschen oder irreführenden Informationen.' %}<br>
+            <span class="bold">- {% translate 'Propaganda (PROPAGANDA)' %}:</span> {% translate 'Verbreitung von politisch oder ideologisch einseitigen Informationen zu Manipulationszwecken.' %}<br>
+            <span class="bold">- {% translate 'Rassismus (RACISM)' %}:</span> {% translate 'Diskriminierung oder Feindseligkeit gegenüber Personen aufgrund ihrer ethnischen Herkunft.' %}<br>
+            <span class="bold">- {% translate 'Relativierung (RELATIVISATION)' %}:</span> {% translate 'Verharmlosung oder Verleugnung von Straftaten oder Menschenrechtsverletzungen.' %}<br>
+            <span class="bold">- {% translate 'Betrug (SCAM)' %}:</span> {% translate 'Täuschung oder betrügerisches Verhalten zum Zweck der Bereicherung.' %}<br>
+            <span class="bold">- {% translate 'Sexismus (SEXISM)' %}:</span> {% translate 'Diskriminierung oder Herabwürdigung aufgrund des Geschlechts.' %}<br>
+            <span class="bold">- {% translate 'Spam (SPAM)' %}:</span> {% translate 'Unerwünschte und unaufgeforderte Nachrichten, insbesondere Werbenachrichten.' %}<br>
+            <span class="bold">- {% translate 'Beleidigung (SWEARWORD)' %}:</span> {% translate 'Gebrauch von abwertender, beleidigender oder vulgärer Sprache.' %}<br>
+            <span class="bold">- {% translate 'Drohung (THREAT)' %}:</span> {% translate 'Androhung von Gewalt oder sonstigen negativen Konsequenzen.' %}<br>
+            <span class="bold">- {% translate 'Gewaltbasierter Inhalt (VIOLENT_CONTENT)' %}:</span> {% translate 'Verbreitung von Inhalten, die Gewalt fördern oder darstellen.' %}<br>
+            <span class="bold">- {% translate 'Whataboutismus (WHATABOUTISM)' %}:</span> {% translate 'Ablenkung durch den Hinweis auf andere vermeintliche Missstände, ohne auf die eigentliche Kritik einzugehen.' %}<br>
+            <span class="bold">- {% translate 'Fremdenfeindlichkeit (XENOPHOBIA)' %}:</span> {% translate 'Feindseligkeit oder Vorurteile gegenüber Ausländern oder ethnischen Minderheiten.' %}<br>
+        </p>
+        <p>
+            <span class="bold">{% translate '3. Konsequenzen bei Verstösse' %}</span><br>
+            {% translate 'Verstösse gegen diese Nutzungsrichtlinien können zur vorübergehenden oder dauerhaften Sperrung des Zugangs zur Webseite führen. Die Verantwortlichen behalten sich das Recht vor, bei schwerwiegenden Verstössen rechtliche Schritte einzuleiten.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '4. Meldung von Verstösse' %}</span><br>
+            {% translate 'Sollten Sie Verstösse gegen diese Nutzungsrichtlinien feststellen, bitten wir Sie, uns diese umgehend über die Kontaktinformationen im Impressum mitzuteilen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '5. Änderung der Nutzungsrichtlinien' %}</span><br>
+            {% translate 'Wir behalten uns das Recht vor, diese Nutzungsrichtlinien jederzeit zu ändern oder zu aktualisieren. Die jeweils aktuelle Fassung ist auf dieser Webseite einsehbar und gilt ab dem Zeitpunkt der Veröffentlichung.' %}
+        </p>
+    </div>
+    <div class="action">
+        {% if request.user.is_authenticated %}
+            {% if not request.user.legaluser.terms %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-form-action">{% translate "Zustimmen" %}</button>
+        </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

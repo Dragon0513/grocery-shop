@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+body {
+    padding: 0;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+main {
+    background-color: #F5F5F5;
+    height: 100%;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    display: flex;
+    padding-top: 92px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.swiss {
+    color: red;
+    font-weight: bold;
+    font-size: 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr 32px;
+    grid-template-rows: 16px 16px;
+    grid-column-gap: 8px;
+    grid-template-areas:
+        "swiss-top swiss-logo"
+        "swiss-bottom swiss-logo";
+}
+
+.swiss .swiss-top {
+    grid-area: swiss-top;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.swiss .swiss-bottom {
+    grid-area: swiss-bottom;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.swiss .swiss-logo {
+    grid-area: swiss-logo;
+    display: flex;
+}
+
+.swiss .swiss-logo img {
+    height: 100%;
+    width: 100%;
+}
+
+.card {
+    margin: 0 auto;
+    background-color: white;
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+}
+
+.card .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.card .main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 16px;
+    padding: 0 32px;
+}
+
+.card .legalify-bottom {
+    padding-bottom: 32px;
+}
+
+.card .legalify p, .card ul, .card ul li {
+    font-size: 0.7rem;
+}
+
+.card .bold {
+    font-weight: bold;
+}
+
+.card .action {
+    padding: 16px 32px;
+}
+
+.card h1 {
+    padding: 16px 0;
+    font-size: 1.1rem;
+}
+
+.card p, .card form input, .card ul, .card ul li {
+    color: #717171;
+    font-size: 0.8rem;
+}
+
+.card a, .legal a {
+    color: #686EFF;
+    text-decoration: none;
+}
+
+.card form input {
+    height: 32px;
+    border: none;
+    background-color: #F5F5F5;
+    padding: 0 8px;
+    border-radius: 5px;
+}
+
+.card form button {
+    background-color: #BEBEBE;
+    border: none;
+    border-radius: 5px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+}
+
+.legal {
+    margin: auto 0 0 0;
+    padding: 8px 32px;
+    bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 32px 32px;
+    grid-gap: 8px;
+}
+
+.legal a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BEBEBE;
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    border-radius: 5px;
+}

@@ -1,0 +1,74 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    {% if auth_type == "login" %}
+        <form method="post">
+            <div class="header">
+                <h1>{% translate 'Anmelden' %}</h1>
+            </div>
+            <div class="main">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="{% translate 'Benutzername' %}" required>
+                {% if form.errors.username %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.username }}</p>
+                    </div>
+                {% endif %}
+                <input type="password" name="password" placeholder="{% translate 'Passwort' %}">
+                {% if form.errors.password %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.password }}</p>
+                    </div>
+                {% endif %}
+                </div>
+            <div class="action">
+                <button class="btn-form-action" type="submit">{% translate "Anmelden" %}</button>
+            <p>Stattdessen <a href="{% url 'signup' %}" class="instead">{% translate 'Registrieren' %}</a></p>
+            </div>
+        </form>
+    {% endif %}
+    {% if auth_type == "signup" %}
+        <form method="post">
+            <div class="header">
+                <h1>{% translate 'Anmelden' %}</h1>
+            </div>
+            <div class="main">
+                {% csrf_token %}
+                <input type="text" name="first_name" placeholder="{% translate 'Vorname' %}" required>
+                {% if form.errors.first_name %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.first_name }}</p>
+                    </div>
+                {% endif %}
+                <input type="text" name="last_name" placeholder="{% translate 'Nachname' %}" required>
+                {% if form.errors.last_name %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.last_name }}</p>
+                    </div>
+                {% endif %}
+                <input type="text" name="username" placeholder="{% translate 'Benutzername' %}" required>
+                {% if form.errors.username %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.username }}</p>
+                    </div>
+                {% endif %}
+                <input type="email" name="email" placeholder="{% translate 'E-Mail Adresse' %}" required>
+                {% if form.errors.email %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.email }}</p>
+                    </div>
+                {% endif %}
+                <input type="password" name="password" placeholder="{% translate 'Passwort' %}">
+                {% if form.errors.password %}
+                    <div class="error">
+                        <p class="error">{{ form.errors.password }}</p>
+                    </div>
+                {% endif %}
+                </div>
+            <div class="action">
+                <button class="btn-form-action" type="submit">{% translate "Registrieren" %}</button>
+                <p>Stattdessen <a href="{% url 'login' %}" class="instead">{% translate 'Anmelden' %}</a></p>
+            </div>
+    </form>
+    {% endif %}
+</div>

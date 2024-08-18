@@ -1,0 +1,32 @@
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 48px;
+    grid-template-columns: 48px auto 1fr 48px;
+    grid-template-areas:
+        "icon-left title . icon-right";
+}
+
+.icon-left {
+    grid-area: icon-left;
+}
+
+.title {
+    grid-area: title
+}
+
+.icon-right {
+    grid-area: icon-right;
+    filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-right img {
+    width: 24px;
+    height: 24px;
+}

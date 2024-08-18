@@ -1,0 +1,8 @@
+{% load static %}
+{% load i18n %}
+<div class="legal">
+    <a href="{% url 'impressum' %}">{% translate 'Impressum' %}</a>
+    <a href="{% url 'disclaimer' %}">{% translate 'Haftungsausschluss' %}</a>
+    <a href="{% url 'privacy' %}">{% translate 'Datenschutzerklärung' %}</a>
+    <a href="{% url 'terms' %}">{% translate 'Nutzungsrichtlinien' %}</a>
+</div>
