@@ -1,0 +1,19 @@
+{% load static %}
+{% load i18n %}
+
+<footer class="{% if request.user.is_authenticated %}footer-authenticated{% else %}footer-unauthenticated{% endif %}">
+    <div class="home">
+        <a href="{% url 'home' %}" class="icon">
+            {% if page == 'home' %}
+            <img src="{% static 'svgs/home.svg' %}" height="100%"/>
+            {% else %}
+            <img src="{% static 'svgs/home-outline.svg' %}" height="100%"/>
+            {% endif %}
+        </a>
+    </div>
+    <div class="account">
+        <a class="icon">
+            <img src="{% static 'svgs/account-circle-outline.svg' %}" height="100%"/>
+        </a>
+    </div>
+</footer>

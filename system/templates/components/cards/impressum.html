@@ -1,0 +1,54 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="header">
+        <h1>{% translate 'Impressum' %}</h1>
+    </div>
+    <div class="main legalify legalify-bottom">
+        <p class="bold">{% translate 'Verantwortluch für den Inhalt gemäss § 5 TMG (Telemediengesetz) und Art. 4 Abs. 7 DSGVO' %}</p>
+        <p>
+            Gian Erler<br>
+            Unbekannte Strasse und Hausnummer<br>
+            Unbekannter PLZ und Ort<br>
+            Unbekanntes Land<br>
+        </p>
+        <p>
+            Einissa Schwab<br>
+            Unbekannte Strasse und Hausnummer<br>
+            Unbekannter PLZ und Ort<br>
+            Unbekanntes Land<br>
+        </p>
+        <p>
+            Michelle Nachname<br>
+            Unbekannte Strasse und Hausnummer<br>
+            Unbekannter PLZ und Ort<br>
+            Unbekanntes Land<br>
+        </p>
+        <p>
+            vorname.nachname@email.com
+        </p>
+        <p>
+            <span class="bold">{% translate 'Haftung für Inhalte' %}</span><br>
+            {% translate 'Die Inhalte unsere Seite wurde mit grösster Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate 'Haftung für Links' %}</span><br>
+            {% translate 'Unser Angebot enthält potenziell zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremde Inhalte auch keine Gewähr übernehmen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate 'Obligatorische Sponsorhinweis' %}</span><br>
+            Diese Webseite wird <span style="color: #FF9900">gesponsert von</span> <span class="bold"><span style="color: #004CBC">K</span><span style="color: #FF0000">i</span><span style="color: #FF9900">i</span><span style="color: #004CBC">d</span><span style="color: #00B749">l</span><span style="color: #FF0000">e</span></span>. Der Hinweis auf den Sponsor ist hier aufgrund der geltenden Impressumspflicht der Europäischen Union und der Schweiz enthalten. Es besteht keine weitere rechtliche oder geschäftliche Beziehung zwischen dem Betreiber dieser Seite und dem Sponsor.
+        </p>
+        <div class="swiss">
+            <div class="swiss-top">
+                {% translate 'Made by Swiss Standards' %}
+            </div>
+            <div class="swiss-bottom">
+                {% translate 'Schweizerische Eidgenossenschaft' %}
+            </div>
+            <div class="swiss-logo">
+                <img src="{% static 'svgs/ch.svg' %}" height="100%"/>
+            </div>
+        </div>
+    </div>
+</div>

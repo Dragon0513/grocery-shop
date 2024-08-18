@@ -1,0 +1,44 @@
+footer {
+    width: 100%;
+    background-color: white;
+    display: grid;
+    grid-template-rows: 48px;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-authenticated {
+    grid-template-columns: 1fr 48px 1fr 48px 1fr;
+    grid-template-areas:
+        ". home . account .";
+}
+
+.footer-unauthenticated {
+    grid-template-columns: 1fr 48px 1fr;
+    grid-template-areas:
+        ". home .";
+}
+
+footer .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+footer .icon img {
+    width: 24px;
+    height: 24px;
+}
+
+footer .home {
+    grid-area: home;
+}
+
+.footer-authenticated .account {
+    grid-area: account;
+}
+
+.footer-unauthenticated .account {
+    display: none;
+}

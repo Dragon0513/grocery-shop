@@ -1,11 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from system.forms import LoginForm, SignUpForm
+from system.models import LegalUser
+
+from .mixins import LegalRequirementMixin
 
 User = get_user_model()
 
@@ -38,11 +42,11 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy("login")
     template_name = "pages/authentication/signup.html"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def form_valid(self, form):
         response = super().form_valid(form)
+        LegalUser.objects.create(
+            user=self.object, privacy=False, disclaimer=False, terms=False
+        )
         return response
 
     def get_context_data(self, **kwargs):
@@ -56,6 +60,70 @@ def custom_logout(request):
     return redirect("home")
 
 
-class HomeView(generic.ListView):
+class HomeView(
+    LoginRequiredMixin,
+    LegalRequirementMixin,
+    generic.ListView,
+):
     model = User
     template_name = "pages/root/home.html"
+
+    login_url = reverse_lazy("login")
+
+
+class ImpressumView(generic.ListView):
+    model = User
+    template_name = "pages/legal/impressum.html"
+
+
+class PrivacyView(LoginRequiredMixin, generic.UpdateView):
+    model = LegalUser
+    fields = []
+    template_name = "pages/legal/privacy.html"
+    success_url = reverse_lazy("disclaimer")
+
+    def get_object(self, queryset=None):
+        return self.request.user.legaluser
+
+    def form_valid(self, form):
+        form.instance.privacy = True
+        form.instance.save()
+        return redirect(
+            "disclaimer"
+            if not form.instance.disclaimer
+            else "terms" if not form.instance.terms else "home"
+        )
+
+
+class DisclaimerView(LoginRequiredMixin, generic.UpdateView):
+    model = LegalUser
+    fields = []
+    template_name = "pages/legal/disclaimer.html"
+    success_url = reverse_lazy("home")
+
+    def get_object(self, queryset=None):
+        return self.request.user.legaluser
+
+    def form_valid(self, form):
+        form.instance.disclaimer = True
+        form.instance.save()
+        return redirect(
+            "privacy"
+            if not form.instance.privacy
+            else "terms" if not form.instance.terms else "home"
+        )
+
+
+class TermsView(LoginRequiredMixin, generic.UpdateView):
+    model = LegalUser
+    fields = []
+    template_name = "pages/legal/terms.html"
+    success_url = reverse_lazy("home")
+
+    def get_object(self, queryset=None):
+        return self.request.user.legaluser
+
+    def form_valid(self, form):
+        form.instance.terms = True
+        form.instance.save()
+        return redirect("home")

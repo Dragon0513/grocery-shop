@@ -1,0 +1,39 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="header">
+        <h1>{% translate 'Haftungsausschluss' %}</h1>
+    </div>
+    <div class="main legalify">
+        <p>
+            <span class="bold">{% translate '1. Inhalt des Onlineangebots' %}</span><br>
+            {% translate 'Die Inhalte dieser Webseite wurden mit grösstmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Dienstanbieter sind wir gemäss § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '2. Haftung für Links' %}</span><br>
+           {% translate 'Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstösse überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '3. Urheberrecht' %}</span><br>
+            {% translate 'Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung ausserhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '4. Haftung für Schäden' %}</span><br>
+            {% translate 'Wir schliessen jegliche Haftung für Schäden aus, die direkt oder indirekt aus der Nutzung dieser Webseite und der darin enthaltenen Informationen entstehen, soweit diese nicht auf Vorsatz oder grober Fahrlässigkeit beruhen.' %}
+        </p>
+        <p>
+            <span class="bold">{% translate '5. Keine Abmahnung ohne vorherigen Kontakt' %}</span><br>
+            {% translate 'Sollten Inhalte dieser Webseite die Rechte Dritter oder gesetzliche Bestimmungen verletzen, bitten wir um eine entsprechende Nachricht ohne Kostennote. Wir garantieren, dass die zu Recht beanstandeten Inhalte unverzüglich entfernt werden, ohne dass die Einschaltung eines Rechtsbeistandes erforderlich ist. Dennoch von Ihnen ohne vorherige Kontaktaufnahme ausgelöste Kosten werden wir vollständig zurückweisen und gegebenenfalls Gegenklage wegen Verletzung vorgenannter Bestimmungen einreichen.' %}
+        </p>
+    </div>
+    <div class="action">
+        {% if request.user.is_authenticated %}
+            {% if not request.user.legaluser.disclaimer %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-form-action">{% translate "Zustimmen" %}</button>
+        </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
