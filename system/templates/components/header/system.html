@@ -4,7 +4,15 @@
     <div class="icon-left">
         <img src="{% static 'images/logo_groceries_list.jpeg' %}" height="100%"/>
     </div>
-    <a href="" class="icon-right">
-        <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
-    </a>
+        {% if icon_right == "pencil" %}
+        {% if icon_right_url and icon_right_pk %}
+            <a href="{% url icon_right_url icon_right_pk %}" class="icon-right">
+                <img src="{% static 'svgs/pencil.svg' %}" height="100%"/>
+            </a>
+        {% endif %}
+        {% else %}
+        <a href="" class="icon-right">
+            <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
+        </a>
+        {% endif %}
 </header>

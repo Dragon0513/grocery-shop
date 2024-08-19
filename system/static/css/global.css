@@ -158,3 +158,35 @@ main {
     font-size: 0.75rem;
     border-radius: 5px;
 }
+
+.button {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+}
+
+.mt-2 {
+    margin-top: 8px;
+}
+
+.color-white {
+    color: white !important;
+}
+
+.color-green {
+    color: #00A843;
+}
+
+.color-red {
+    color: #A70000
+}
+
+.background-gray {
+    background-color: #BEBEBE;
+}
+
+.background-red {
+    background-color: #A70000 !important;
+}

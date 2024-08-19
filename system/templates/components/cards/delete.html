@@ -1,0 +1,20 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <form method="post">
+        <div class="header">
+            <h1>{% translate 'Bist du dir sicher?' %}</h1>
+        </div>
+        <div class="main">
+            {% csrf_token %}
+        </div>
+        <div class="action">
+            <button class="background-red" type="submit">{% translate "Bestätigen" %}</button>
+            <a href="{% url 'account_update' request.user.pk %}">
+                <div class="button background-gray mt-2">
+                    <p class="bold color-white">{% translate 'Abbrechen' %}</p>
+                </div>
+            </a>
+        </div>
+    </form>
+</div>
