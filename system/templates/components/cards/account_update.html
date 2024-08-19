@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <form method="post" action="{% url 'account_update' pk=request.user.pk %}">
+        <div class="header">
+            <h1>{% translate 'Konto' %}</h1>
+        </div>
+        <div class="main">
+            {% csrf_token %}
+            <input type="text" name="first_name" value="{{ request.user.first_name }}" placeholder="{% translate 'Vorname' %}" required>
+            {% if form.errors.first_name %}
+                <div class="error">
+                    <p class="error">{{ form.errors.first_name }}</p>
+                </div>
+            {% endif %}
+            <input type="text" name="last_name" value="{{ request.user.last_name }}" placeholder="{% translate 'Vorname' %}" required>
+            {% if form.errors.last_name %}
+                <div class="error">
+                    <p class="error">{{ form.errors.last_name }}</p>
+                </div>
+            {% endif %}
+            <input type="text" name="username" value="{{ request.user.username }}" placeholder="{% translate 'Vorname' %}" required>
+            {% if form.errors.last_name %}
+                <div class="error">
+                    <p class="error">{{ form.errors.username }}</p>
+                </div>
+            {% endif %}
+            <input type="text" name="email" value="{{ request.user.email }}" placeholder="{% translate 'Vorname' %}" required>
+            {% if form.errors.email %}
+                <div class="error">
+                    <p class="error">{{ form.errors.email }}</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="action">
+            <button class="btn-form-action" type="submit">{% translate "Speichern" %}</button>
+            <a href="{% url 'logout' %}">
+                <div class="button background-red mt-2">
+                    <p class="bold color-white">{% translate 'Abmelden' %}<p>
+                </div>
+            </a>
+            <a href="{% url 'account_delete' %}">
+                <div class="button background-red mt-2">
+                    <p class="bold color-white">{% translate 'Konto löschen' %}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

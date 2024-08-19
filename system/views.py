@@ -71,6 +71,35 @@ class HomeView(
     login_url = reverse_lazy("login")
 
 
+class AccountView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = "pages/root/account.html"
+
+    login_url = reverse_lazy("login")
+
+
+class AccountUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = User
+    template_name = "pages/root/account_update.html"
+    fields = ["first_name", "last_name", "username", "email"]
+
+    login_url = reverse_lazy("login")
+
+    def get_success_url(self):
+        return reverse_lazy("account")
+
+
+class AccountDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = User
+    template_name = "pages/root/account_delete.html"
+    success_url = reverse_lazy("home")
+
+    login_url = reverse_lazy("login")
+
+    def get_object(self):
+        return self.request.user
+
+
 class ImpressumView(generic.ListView):
     model = User
     template_name = "pages/legal/impressum.html"

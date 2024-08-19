@@ -1,0 +1,45 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="header">
+        <h1>{% translate 'Konto' %}</h1>
+    </div>
+    <div class="main legalify-bottom">
+        <p>
+            <span class="bold">{% translate 'Name' %}</span><br>
+            <span style="padding-left: 8px">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+        </p>
+        <p>
+            <span class="bold">{% translate 'Benutzername' %}</span><br>
+            <span style="padding-left: 8px">{{ request.user.username }}</span>
+        </p>
+        <p>
+            <span class="bold">{% translate 'E-Mail Adresse' %}</span><br>
+            <span style="padding-left: 8px">{{ request.user.email }}</span>
+        </p>
+        <p>
+            <span class="bold">{% translate 'Datenschutzerklärung' %}</span><br>
+            {% if request.user.legaluser.privacy %}
+            <span class="color-green" style="padding-left: 8px">{% translate 'Zugestimmt' %}</span>
+            {% else %}
+            <span class="color-red" style="padding-left: 8px">{% translate 'Nicht zugestimmt' %}</span>
+            {% endif %}
+        </p>
+        <p>
+            <span class="bold">{% translate 'Haftungsausschluss' %}</span><br>
+            {% if request.user.legaluser.disclaimer %}
+            <span class="color-green" style="padding-left: 8px">{% translate 'Zugestimmt' %}</span>
+            {% else %}
+            <span class="color-red" style="padding-left: 8px">{% translate 'Nicht zugestimmt' %}</span>
+            {% endif %}
+        </p>
+        <p>
+            <span class="bold">{% translate 'Nutzungsrichtlinien' %}</span><br>
+            {% if request.user.legaluser.terms %}
+            <span class="color-green" style="padding-left: 8px">{% translate 'Zugestimmt' %}</span>
+            {% else %}
+            <span class="color-red" style="padding-left: 8px">{% translate 'Nicht zugestimmt' %}</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
