@@ -14,8 +14,15 @@ class CategoryView(LoginRequiredMixin, LegalRequirementMixin, generic.DetailView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        search_query = self.request.GET.get("search", "")
 
         context["sections"] = Section.objects.filter(category=self.object)
-        context["foods"] = Food.objects.filter(section__category=self.object)
+
+        if search_query:
+            context["foods"] = Food.objects.filter(
+                section__category=self.object, name__icontains=search_query
+            )
+        else:
+            context["foods"] = Food.objects.filter(section__category=self.object)
 
         return context

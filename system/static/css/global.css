@@ -112,6 +112,10 @@ main {
     font-size: 0.8rem;
 }
 
+.card .search input {
+    width: 100%;
+}
+
 .card a, .legal a {
     color: #686EFF;
     text-decoration: none;
@@ -125,7 +129,7 @@ main {
     border-radius: 5px;
 }
 
-.card form button {
+.card form button, .search form button {
     background-color: #BEBEBE;
     border: none;
     border-radius: 5px;
@@ -136,6 +140,12 @@ main {
     width: 100%;
     color: white;
     font-weight: bold;
+}
+
+.card form button img, .search form button img {
+    filter: invert();
+    width: 24px;
+    height: 24px;
 }
 
 .legal {
@@ -261,4 +271,24 @@ main {
     height: 64px;
     display: flex;
     align-items: center;
+}
+
+.search {
+    margin: 0 auto;
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+}
+
+.search .grid {
+    display: grid;
+    grid-template-columns: 1fr 32px;
+}
+
+.search .grid input {
+    height: 32px;
+    border: none;
+    background-color: white;
+    padding: 0 8px;
+    border-radius: 5px;
 }
