@@ -87,5 +87,7 @@ Congratulations! You have successfully installed Django on your computer in a vi
 ## Contributors
 
 ## Project Initiator
-- Enissa Schwab
 - Gian Erler
+- Enissa Schwab
+- Michelle Morandi
+- Cyrill Weibel
