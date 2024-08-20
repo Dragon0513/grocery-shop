@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -16,13 +17,21 @@ class CategoryView(LoginRequiredMixin, LegalRequirementMixin, generic.DetailView
         context = super().get_context_data(**kwargs)
         search_query = self.request.GET.get("search", "")
 
-        context["sections"] = Section.objects.filter(category=self.object)
-
         if search_query:
-            context["foods"] = Food.objects.filter(
+            # Filter foods based on the search query
+            foods = Food.objects.filter(
                 section__category=self.object, name__icontains=search_query
             )
         else:
-            context["foods"] = Food.objects.filter(section__category=self.object)
+            # Get all foods for the category
+            foods = Food.objects.filter(section__category=self.object)
+
+        # Get sections that have the filtered foods
+        sections = Section.objects.filter(
+            Q(category=self.object) & Q(food__in=foods)
+        ).distinct()
+
+        context["sections"] = sections
+        context["foods"] = foods
 
         return context

@@ -6,11 +6,13 @@
         <p class="title">{{ section.name }}</p>
         <div class="foods">
         {% for food in foods %}
+            {% if food.section == section %}
             <div class="food">
                 <div>
                     <p>{{ food.name }}</p>
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
         </div>
     </div>

@@ -7,6 +7,7 @@ class Command(BaseCommand):
     help = "Setup default categories, sections, and foods"
 
     def handle(self, *args, **kwargs):
+        # Kategorien erstellen
         categories = [
             {"name": "Gemüse", "icon": "carrot"},
             {"name": "Früchte", "icon": "food-apple"},
@@ -30,6 +31,7 @@ class Command(BaseCommand):
                     self.style.WARNING(f"Category '{category.name}' already exists.")
                 )
 
+        # Sektionen erstellen
         sections = [
             {"category": "Fleisch", "name": "Wurstwaren"},
             {"category": "Fleisch", "name": "Wildfleisch"},
@@ -67,7 +69,6 @@ class Command(BaseCommand):
             {"category": "Gemüse", "name": "Knollen – und Wurzelgemüse"},
         ]
 
-        # Create sections
         section_objects = {}
         for section_data in sections:
             category = Category.objects.get(name=section_data["category"])
@@ -89,7 +90,8 @@ class Command(BaseCommand):
                     )
                 )
 
-        foods = {
+        # Definieren Sie die Zuordnung von Lebensmitteln zu Sektionen
+        foods_by_section = {
             "Fleisch - Rindfleisch": [
                 "Steak",
                 "Hackfleisch",
@@ -154,30 +156,30 @@ class Command(BaseCommand):
                 "Sbrinz",
                 "Parmesan",
                 "Hartkäse",
-                "Emmentaler",  # Extrahartkäse
+                "Emmentaler",
                 "Appenzeller",
                 "Bergkäse",
                 "Freiburger Vacherin",
                 "Raclettekäse",
                 "Schabziger",
                 "Tete de Moine",
-                "Tilsiter",  # Halbhartkäse
+                "Tilsiter",
                 "Brie",
                 "Camembert",
                 "Tomme",
                 "Gorgonzola",
                 "Roquefort",
-                "Stilton",  # Weichkäse - Weissem Edelschimmel
+                "Stilton",
                 "Reblochon",
                 "Münster",
                 "Taleggio",
-                "Vacherin Mont-d Or",  # Weichkäse - Rotschmiere
+                "Vacherin Mont-d Or",
                 "Feta",
                 "Hüttenkäse",
                 "Mascarpone",
                 "Mozzarella",
                 "Quark",
-                "Ricotta",  # Frischkäse
+                "Ricotta",
             ],
             "Milch / Eier - Eier": [
                 "Strausseneier",
@@ -254,8 +256,6 @@ class Command(BaseCommand):
                 "Auberginen",
                 "Gurken",
                 "Kürbis",
-                "Melonen",
-                "Okras",
                 "Peperoni",
                 "Tomaten",
                 "Zucchetti",
@@ -318,23 +318,31 @@ class Command(BaseCommand):
             ],
         }
 
-        # Create foods
-        for section_name, food_items in foods.items():
-            section = section_objects[section_name]
-            for food_name in food_items:
+        # Bereinigung der Datenbank: Löschen aller vorhandenen Lebensmittel
+        Food.objects.all().delete()
+
+        # Erstellen und eindeutiges Zuordnen der Lebensmittel zu den Sektionen
+        for section_key, foods in foods_by_section.items():
+            category_name, section_name = section_key.split(" - ")
+            section = Section.objects.get(
+                name=section_name, category__name=category_name
+            )
+
+            for food_name in foods:
+                # Lebensmittel direkt der richtigen Sektion zuordnen
                 food, created = Food.objects.get_or_create(
-                    name=food_name,
-                    section=section,
+                    name=food_name, section=section
                 )
+
                 if created:
                     self.stdout.write(
                         self.style.SUCCESS(
-                            f"Food '{food.name}' under section '{section.name}' created."
+                            f"Food '{food.name}' in section '{section.name}' created."
                         )
                     )
                 else:
                     self.stdout.write(
                         self.style.WARNING(
-                            f"Food '{food.name}' under section '{section.name}' already exists."
+                            f"Food '{food.name}' in section '{section.name}' already exists."
                         )
                     )
