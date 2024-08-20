@@ -85,6 +85,7 @@ Congratulations! You have successfully installed Django on your computer in a vi
 4. Django provides a range of test runner option that you can use to customize your test execution, such as verbosity level and coverage report. To see all available options, run the following command: `python manage.py help test`.
 
 ## Contributors
+- Jonas S. Büchi
 
 ## Project Initiator
 - Gian Erler
