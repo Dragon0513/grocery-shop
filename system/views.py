@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from personal.models import Category
 from system.forms import LoginForm, SignUpForm
 from system.models import LegalUser
 
@@ -65,10 +66,14 @@ class HomeView(
     LegalRequirementMixin,
     generic.ListView,
 ):
-    model = User
+    model = Category
     template_name = "pages/root/home.html"
-
     login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class AccountView(LoginRequiredMixin, generic.ListView):

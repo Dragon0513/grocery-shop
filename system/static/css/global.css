@@ -112,6 +112,10 @@ main {
     font-size: 0.8rem;
 }
 
+.card .search input {
+    width: 100%;
+}
+
 .card a, .legal a {
     color: #686EFF;
     text-decoration: none;
@@ -125,7 +129,7 @@ main {
     border-radius: 5px;
 }
 
-.card form button {
+.card form button, .search form button {
     background-color: #BEBEBE;
     border: none;
     border-radius: 5px;
@@ -136,6 +140,12 @@ main {
     width: 100%;
     color: white;
     font-weight: bold;
+}
+
+.card form button img, .search form button img {
+    filter: invert();
+    width: 24px;
+    height: 24px;
 }
 
 .legal {
@@ -189,4 +199,96 @@ main {
 
 .background-red {
     background-color: #A70000 !important;
+}
+
+.categories {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 46px;
+    max-width: 302px;
+}
+
+.categories .category {
+    background-color: white;
+    width: 128px;
+    height: 128px;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.categories .category-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 64px 24px;
+    grid-template-areas:
+        "icon"
+        "name";
+    grid-row-gap: 8px;
+}
+
+.categories .category .category-grid .icon {
+    grid-area: icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories .category .category-grid .name {
+    grid-area: name;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.sections {
+    margin: 0 48px;
+}
+
+.sections .title {
+    font-weight: bold;
+}
+
+.foods {
+    padding: 0 16px;
+    margin-bottom: 64px;
+}
+
+.foods .food {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    padding: 0 16px;
+    color: #717171;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.search {
+    margin: 0 auto;
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+}
+
+.search .grid {
+    display: grid;
+    grid-template-columns: 1fr 32px;
+}
+
+.search .grid input {
+    height: 32px;
+    border: none;
+    background-color: white;
+    padding: 0 8px;
+    border-radius: 5px;
 }

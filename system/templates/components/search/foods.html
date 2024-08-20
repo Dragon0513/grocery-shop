@@ -1,0 +1,12 @@
+{% load static %}
+{% load i18n %}
+<div class="search">
+    <form method="GET">
+        <div class="grid">
+            <input class="search" type="text" name="search" placeholder="{% translate 'Nahrung suchen...' %}" value="{{ request.GET.search }}">
+            <button type="submit">
+                <img src="{% static 'svgs/magnify.svg' %}" height="100%"/>
+            </button>
+        </div>
+    </form>
+</div>

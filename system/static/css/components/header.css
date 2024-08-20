@@ -10,15 +10,29 @@ header {
         "icon-left title . icon-right";
 }
 
-.icon-left {
+header .icon-left {
     grid-area: icon-left;
 }
 
-.title {
-    grid-area: title
+header .icon-left .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
-.icon-right {
+header .icon-left .icon img {
+    height: 32px;
+    width: 32px;
+}
+
+header .title {
+    grid-area: title;
+    font-weight: bold;
+}
+
+header .icon-right {
     grid-area: icon-right;
     filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
     display: flex;
@@ -26,7 +40,7 @@ header {
     justify-content: center;
 }
 
-.icon-right img {
+header .icon-right img {
     width: 24px;
     height: 24px;
 }

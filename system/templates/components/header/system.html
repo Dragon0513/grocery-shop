@@ -2,17 +2,28 @@
 {% load i18n %}
 <header>
     <div class="icon-left">
-        <img src="{% static 'images/logo_groceries_list.jpeg' %}" height="100%"/>
+        {% if icon_left %}
+            <div class="icon">
+            <img src="{% static 'svgs/category/' %}{{ icon_left }}.svg" alt="{{ icon_left }}" height="100%%"/>
+            </div>
+        {% else %}
+            <img src="{% static 'images/logo_groceries_list.jpeg' %}" height="100%"/>
+        {% endif %}
     </div>
-        {% if icon_right == "pencil" %}
+    {% if title %}
+    <div class="title">
+        <p>{{ title }}</p>
+    </div>
+    {% endif %}
+    {% if icon_right == "pencil" %}
         {% if icon_right_url and icon_right_pk %}
             <a href="{% url icon_right_url icon_right_pk %}" class="icon-right">
                 <img src="{% static 'svgs/pencil.svg' %}" height="100%"/>
             </a>
         {% endif %}
-        {% else %}
+    {% else %}
         <a href="" class="icon-right">
-            <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
+        <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
         </a>
-        {% endif %}
+    {% endif %}
 </header>

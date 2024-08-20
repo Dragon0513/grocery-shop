@@ -14,8 +14,9 @@
     <body>
         {% include 'components/header/system.html' with icon_left=category.icon title=category.name %}
         <main>
-            {% include 'components/grid/category.html' %}
+            {% include 'components/search/foods.html' %}
+            {% include 'components/grid/section.html' %}
             {% include 'components/cards/legal.html' %}
         </main>
-        {% include 'components/footer/system.html' with page="home" %}
+        {% include 'components/footer/system.html' with page="category" %}
     </body>

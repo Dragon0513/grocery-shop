@@ -1,0 +1,16 @@
+{% load static %}
+{% load i18n %}
+<div class="categories">
+    {% for category in categories %}
+    <a href="{% url 'category' category.pk %}" class="category">
+        <div class="category-grid">
+            <div class="icon">
+                <img src="{% static 'svgs/category/' %}{{ category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ category.name }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
