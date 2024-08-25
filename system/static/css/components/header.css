@@ -5,13 +5,16 @@ header {
     background-color: white;
     display: grid;
     grid-template-rows: 48px;
-    grid-template-columns: 48px auto 1fr 48px;
+    grid-template-columns: 48px auto 1fr 48px 48px;
     grid-template-areas:
-        "icon-left title . icon-right";
+        "icon-left title . icon-share icon-right";
 }
 
 header .icon-left {
     grid-area: icon-left;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header .icon-left .icon {
@@ -27,9 +30,26 @@ header .icon-left .icon img {
     width: 32px;
 }
 
+header .icon-left .shopping {
+    filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
+}
+
+header .icon-left .shopping img, header .icon-share img {
+    height: 24px;
+    width: 24px;
+}
+
 header .title {
     grid-area: title;
     font-weight: bold;
+}
+
+header .icon-share {
+    grid-area: icon-share;
+    filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header .icon-right {

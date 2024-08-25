@@ -8,9 +8,12 @@
         {% for food in foods %}
             {% if food.section == section %}
             <div class="food">
-                <div>
+                <div class="name">
                     <p>{{ food.name }}</p>
                 </div>
+                <a class="button background-green" href="{% url 'select_lists' food.pk %}">
+                    <img src="{% static 'svgs/plus.svg' %}" height="100%"/>
+                </a>
             </div>
             {% endif %}
         {% endfor %}

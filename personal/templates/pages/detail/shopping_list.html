@@ -1,0 +1,19 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/global.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+        <title>{% translate 'Home' %}</title>
+    </head>
+    <body>
+        {% include 'components/header/system.html' with title=shopping_list.name icon_left="shopping" share=share icon_share_url="list_share" icon_share_pk=shopping_list.pk icon_right="pencil" icon_right_url="list_update" icon_right_pk=shopping_list.pk %}
+        <main>
+            {% include 'components/grid/shopping_list_item.html' %}
+        </main>
+        {% include 'components/footer/system.html' with page="list" %}

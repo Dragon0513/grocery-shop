@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext as _
+
+User = get_user_model()
 
 
 # Create your models here.
@@ -29,3 +32,53 @@ class Food(models.Model):
 
     def __str__(self):
         return str(self.section) + " - " + self.name
+
+
+class ShoppingList(models.Model):
+    name = models.CharField(verbose_name=_("Einkaufsliste"), max_length=50)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+    )
+    shared_with = models.ManyToManyField(
+        User, related_name="shared_lists", blank=True, verbose_name=_("Geteilt mit")
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class ShoppingListItem(models.Model):
+    UNIT_CHOICES = [
+        ("kg", "Kilogram"),
+        ("g", "Gram"),
+        ("mg", "Milligram"),
+        ("l", "Liter"),
+    ]
+
+    shopping_list = models.ForeignKey(
+        ShoppingList, on_delete=models.CASCADE, verbose_name=_("Einkaufsliste")
+    )
+    food = models.ForeignKey(Food, on_delete=models.CASCADE, verbose_name=_("Nahrung"))
+    quantity = models.IntegerField(verbose_name=_("Menge"), default=1)
+    unit = models.CharField(
+        verbose_name=_("Einheit"),
+        max_length=2,
+        choices=UNIT_CHOICES,
+        default="kg",
+    )
+    unit_per_item = models.DecimalField(
+        verbose_name=_("Einheit pro Stück"), max_digits=10, decimal_places=2, default=1
+    )
+    status = models.CharField(
+        verbose_name=_("Status"),
+        max_length=20,
+        choices=[
+            ("not_done", _("Nicht erledigt")),
+            ("in_progress", _("In Bearbeitung")),
+            ("done", _("Erledigt")),
+        ],
+        default="not_done",
+    )
+
+    def __str__(self):
+        return f"{self.food.name} ({self.quantity} {self.get_unit_display()}) in {self.shopping_list.name}"

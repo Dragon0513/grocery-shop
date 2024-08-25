@@ -1,0 +1,95 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <div>
+    <p class="title">{% translate 'Zu erledigen' %}</p>
+    <div class="items">
+    {% for item in items_to_do %}
+        <a href="{% url 'item_update' item.pk %}" class="item">
+            <div class="quantity
+            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
+            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
+            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
+            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
+            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
+            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
+            ">
+                <p>{{ item.quantity }}</p>
+            </div>
+            <div class="name">
+                <p>{{ item.food.name }}</p>
+            </div>
+            <div class="unit">
+                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
+            </div>
+            <div class="category-item">
+                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+    <p class="title">{% translate 'In Bearbeitung' %}</p>
+    <div class="items">
+    {% for item in items_in_progress %}
+        <a href="{% url 'item_update' item.pk %}" class="item">
+            <div class="quantity
+            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
+            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
+            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
+            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
+            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
+            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
+            ">
+                <p>{{ item.quantity }}</p>
+            </div>
+            <div class="name">
+                <p>{{ item.food.name }}</p>
+            </div>
+            <div class="unit">
+                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
+            </div>
+            <div class="category-item">
+                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+    <p class="title">{% translate 'Erledigt' %}</p>
+    <div class="items">
+    {% for item in items_done %}
+        <a href="{% url 'item_update' item.pk %}" class="item">
+            <div class="quantity
+            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
+            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
+            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
+            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
+            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
+            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
+            ">
+                <p>{{ item.quantity }}</p>
+            </div>
+            <div class="name">
+                <p>{{ item.food.name }}</p>
+            </div>
+            <div class="unit">
+                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
+            </div>
+            <div class="category-item">
+                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+    <div class="sharing">
+        <p>{% translate 'Erstellt von' %}:</p>
+        <p class="sharing-user">- {{ shopping_list.owner.first_name }} {{ shopping_list.owner.last_name }} (@{{ shopping_list.owner.username }})</p>
+    </div>
+    <div class="sharing">
+        <p>{% translate 'Geteilt mit' %}:</p>
+        {% for user in shopping_list.shared_with.all %}
+            <p class="sharing-user">- {{ user.first_name }} {{ user.last_name }} (@{{ user.username }})</p>
+        {% empty %}
+            <p class="sharing-user color-red">- {% translate 'Nicht geteilt' %}</p>
+        {% endfor %}
+    </div>
+</div>
