@@ -125,6 +125,12 @@ class UpdateShoppingListView(
         context["list"] = shopping_list
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        shopping_list = self.get_object()
+        if shopping_list.owner != request.user:
+            return redirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
@@ -138,6 +144,12 @@ class DeleteShoppingListView(LoginRequiredMixin, generic.DeleteView):
     template_name = "pages/root/account_delete.html"
     success_url = reverse_lazy("lists")
     login_url = reverse_lazy("login")
+
+    def dispatch(self, request, *args, **kwargs):
+        shopping_list = self.get_object()
+        if shopping_list.owner != request.user:
+            return redirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ShareShoppingListView(
@@ -164,6 +176,12 @@ class ShareShoppingListView(
         shopping_list.shared_with.set(shared_users)
 
         return redirect("list", pk=shopping_list.pk)
+
+    def dispatch(self, request, *args, **kwargs):
+        shopping_list = self.get_object()
+        if shopping_list.owner != request.user:
+            return redirect(reverse("home"))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class SelectShoppingListView(
