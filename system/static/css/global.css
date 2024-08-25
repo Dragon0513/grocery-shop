@@ -86,6 +86,28 @@ main {
     padding: 0 32px;
 }
 
+.card .main .item_food {
+    height: 48px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+}
+
+.card .main .item_food .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card .main .item_food .icon img {
+    height: 32px;
+    width: 32px;
+}
+
+.card .main .item_food .p_container {
+    display: flex;
+    align-self: center;
+}
+
 .card .legalify-bottom {
     padding-bottom: 32px;
 }
@@ -107,7 +129,7 @@ main {
     font-size: 1.1rem;
 }
 
-.card p, .card form input, .card ul, .card ul li {
+.card p, .card form input, .card ul, .card ul li, .card select, .card form select {
     color: #717171;
     font-size: 0.8rem;
 }
@@ -121,7 +143,7 @@ main {
     text-decoration: none;
 }
 
-.card form input {
+.card form input, .card form select {
     height: 32px;
     border: none;
     background-color: #F5F5F5;
@@ -175,6 +197,9 @@ main {
     align-items: center;
     justify-content: center;
     height: 32px;
+    border: none;
+    font-weight: bold;
+    width: 100%;
 }
 
 .mt-2 {
@@ -190,15 +215,43 @@ main {
 }
 
 .color-red {
-    color: #A70000
+    color: #A70000 !important
 }
 
 .background-gray {
     background-color: #BEBEBE;
 }
 
+.background-orange {
+    background-color: #FF8A00;
+}
+
 .background-red {
     background-color: #A70000 !important;
+}
+
+.background-light-red {
+    background-color: #FF0000;
+}
+
+.background-green {
+    background-color: #00A843 !important;
+}
+
+.background-cyan {
+    background-color: #008CAB;
+}
+
+.background-brown {
+    background-color: #C85400;
+}
+
+.background-beige {
+    background-color: #D3BF78;
+}
+
+.background-olive {
+    background-color: #5F8B00;
 }
 
 .categories {
@@ -247,15 +300,15 @@ main {
     color: black;
 }
 
-.sections {
+.sections, .personal {
     margin: 0 48px;
 }
 
-.sections .title {
+.sections .title, .personal .title {
     font-weight: bold;
 }
 
-.foods {
+.foods, .lists, .items {
     padding: 0 16px;
     margin-bottom: 64px;
 }
@@ -266,11 +319,168 @@ main {
     box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
     display: flex;
     margin: 16px 0;
-    padding: 0 16px;
+    padding: 0 0 0 16px;
     color: #717171;
     height: 64px;
+    display: grid;
+    grid-template-columns: 1fr 64px;
+}
+
+.shared_users .shared_user {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 64px 1fr 64px;
+    grid-template-rows: 8px 24px 24px 8px;
+    grid-template-areas:
+        ". . ."
+        "icon name checkbox"
+        "icon username checkbox"
+        ". . .";
+    text-decoration: none;
+}
+
+.lists .list {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-rows: 8px 24px 24px 8px;
+    grid-template-areas:
+        ". ."
+        "icon name"
+        "icon owner"
+        ". .";
+    text-decoration: none;
+}
+
+.lists .list .name, .shared_users .shared_user .name {
+    grid-area: name;
     display: flex;
     align-items: center;
+    font-weight: bold;
+}
+
+.lists .list .icon, .shared_users .shared_user .icon {
+    grid-area: icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
+}
+
+.lists .list .icon img, .shared_users .shared_user img {
+    height: 32px;
+    width: 32px;
+}
+
+.lists .list .owner {
+    grid-area: owner;
+    display: flex;
+    align-items: center;
+}
+
+.shared_users .shared_user .username {
+    grid-area: username;
+    display: flex;
+    align-items: center;
+}
+
+.shared_users .shared_user .checkbox {
+    grid-area: checkbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shared_users .shared_user .checkbox input {
+    height: 32px;
+    width: 32px;
+}
+
+
+.items .item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 64px 24px 1fr;
+    grid-template-rows: 8px 24px 24px 8px;
+    grid-template-areas:
+        ". . ."
+        "quantity category name"
+        "quantity unit unit"
+        ". . .";
+    text-decoration: none;
+    grid-column-gap: 8px;
+}
+
+.items .item .quantity {
+    grid-area: quantity;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    border-radius: 10px 0 0 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.items .item .name {
+    grid-area: name;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.items .item .unit {
+    grid-area: unit;
+    display: flex;
+    align-items: center;
+}
+
+.items .item .category-item {
+    grid-area: category;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.items .item .category-item img {
+    height: 16px;
+    width: 16px;
+}
+
+.foods .food .name {
+    display: flex;
+    align-items: center;
+}
+
+.foods .food .button {
+    height: 100%;
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+}
+
+.foods .food .background-green img {
+    filter: invert();
+    height: 32px;
+    width: 32px;
 }
 
 .search {
@@ -291,4 +501,14 @@ main {
     background-color: white;
     padding: 0 8px;
     border-radius: 5px;
+}
+
+.sharing {
+
+}
+
+.sharing .sharing-user {
+    margin-left: 16px;
+    font-size: 0.8rem;
+    color: #717171;
 }

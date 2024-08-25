@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+<form method="post">
+    {% csrf_token %}
+    <div class="personal">
+        <p class="title">{% translate 'Benutzer' %}</p>
+        <div class="shared_users">
+        {% for user in users %}
+            <div class="shared_user">
+                <div class="icon">
+                    <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
+                </div>
+                <div class="name">
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+                <div class="username">
+                    <p>@{{ user.username }}</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="shared_users" value="{{ user.id }}"
+                               {% if user in shared_users %}checked{% endif %}>
+                    </label>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="shared_users">
+            <button type="submit" class="button background-gray color-white">{{ _('Speichern') }}</button>
+        </div>
+    </div>
+</form>

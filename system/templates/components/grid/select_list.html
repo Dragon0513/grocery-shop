@@ -1,0 +1,37 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <h1>{% translate 'Auswählen' %}</h1>
+    <p class="title">{% translate 'Meine Einkaufslisten' %}</p>
+    <div class="lists">
+    {% for list in created_lists %}
+        <a href="{% url 'item_create' food_pk=food_pk list_pk=list.pk %}" class="list">
+            <div class="icon">
+                <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ list.name }}</p>
+            </div>
+            <div class="owner">
+                <p>@{{ list.owner }}</p>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+    <p class="title">{% translate 'Mit mir geteilte Einkaufslisten' %}</p>
+    <div class="lists">
+        {% for list in shared_lists %}
+        <a href="{% url 'item_create' food_pk=food_pk list_pk=list.pk %}" class="list">
+            <div class="icon">
+                <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ list.name }}</p>
+            </div>
+            <div class="owner">
+                <p>@{{ list.owner }}</p>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+</div>

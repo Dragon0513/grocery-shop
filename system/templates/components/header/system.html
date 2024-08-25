@@ -3,17 +3,28 @@
 <header>
     <div class="icon-left">
         {% if icon_left %}
-            <div class="icon">
-            <img src="{% static 'svgs/category/' %}{{ icon_left }}.svg" alt="{{ icon_left }}" height="100%%"/>
+            {% if icon_left == "shopping" %}
+            <div class="icon shopping">
+                <img src="{% static 'svgs/shopping.svg' %}" alt="{{ icon_left }}" height="100%"/>
             </div>
+            {% else %}
+                <div class="icon">
+                <img src="{% static 'svgs/category/' %}{{ icon_left }}.svg" alt="{{ icon_left }}" height="100%%"/>
+                </div>
+            {% endif %}
         {% else %}
             <img src="{% static 'images/logo_groceries_list.jpeg' %}" height="100%"/>
         {% endif %}
     </div>
     {% if title %}
-    <div class="title">
+        <div class="title">
         <p>{{ title }}</p>
-    </div>
+        </div>
+    {% endif %}
+    {% if share %}
+        <a href="{% url icon_share_url icon_share_pk %}" class="icon-share">
+            <img src="{% static 'svgs/share-variant.svg' %}" height="100%"/>
+        </a>
     {% endif %}
     {% if icon_right == "pencil" %}
         {% if icon_right_url and icon_right_pk %}
@@ -21,8 +32,14 @@
                 <img src="{% static 'svgs/pencil.svg' %}" height="100%"/>
             </a>
         {% endif %}
+    {% elif icon_right == 'plus' %}
+        {% if icon_right_url %}
+        <a href="{% url icon_right_url %}" class="icon-right">
+            <img src="{% static 'svgs/plus.svg' %}" height="100%"/>
+        </a>
+        {% endif %}
     {% else %}
-        <a href="" class="icon-right">
+        <a href="{% url 'lists' %}" class="icon-right">
         <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>
         </a>
     {% endif %}

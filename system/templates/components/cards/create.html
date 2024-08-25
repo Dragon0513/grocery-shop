@@ -1,0 +1,82 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <form method="post">
+        <div class="header">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="main">
+            {% csrf_token %}
+            {% if model == "shopping_list" %}
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="{% translate 'Name' %}"
+                    {% if operation == "update" %} value="{{ list.name }}" {% endif %}
+                    required>
+            {% endif %}
+            {% if model == "shopping_list_item" %}
+            <div class="item_food">
+                <div class="icon">
+                    {% if operation == "update" %}
+                    <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ item.food.section.category.icon }}" height="100%%"/>
+                    {% else %}
+                    <img src="{% static 'svgs/category/' %}{{ food.section.category.icon }}.svg" alt="{{ food.section.category.icon }}" height="100%%"/>
+                    {% endif %}
+                </div>
+                <div class="p_container">
+                    {% if operation == "update" %}
+                    <p>{{ item.food.name }} ({{ item.food.section.category }})</p>
+                    {% else %}
+                    <p>{{ food.name }} ({{ food.section.category }})</p>
+                    {% endif %}
+                </div>
+            </div>
+            <input
+                type="text"
+                name="quantity"
+                placeholder="{% translate 'Menge' %}"
+                {% if operation == "update" %} value="{{ item.quantity }}" {% endif %}
+                required>
+            <select name="unit" required>
+                <option value="kg" {% if operation == "update" and item.unit == 'kg' %}selected{% endif %}>{% translate 'Einheit: KG' %}</option>
+                <option value="g" {% if operation == "update" and item.unit == 'g' %}selected{% endif %}>{% translate 'Einheit: G' %}</option>
+                <option value="mg" {% if operation == "update" and item.unit == 'mg' %}selected{% endif %}>{% translate 'Einheit: MG' %}</option>
+                <option value="l" {% if operation == "update" and item.unit == 'l' %}selected{% endif %}>{% translate 'Einheit: L' %}</option>
+            </select>
+            <input
+                type="text"
+                name="unit_per_item"
+                placeholder="{% translate 'Einheit pro Stück' %}"
+                {% if operation == "update" %} value="{{ item.unit_per_item }}" {% endif %}
+                required>
+            <select name="status" required>
+                <option value="not_done" {% if operation == "update" and item.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
+                <option value="in_progress" {% if operation == "update" and item.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
+                <option value="done" {% if operation == "update" and item.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
+            </select>
+            {% endif %}
+        </div>
+        <div class="action">
+            {% if operation == "update" %}
+            <button class="btn-form-action" type="submit">{% translate "Aktualisieren" %}</button>
+            {% else %}
+            <button class="btn-form-action background-green" type="submit">{% translate "Erstellen" %}</button>
+            {% endif %}
+            {% if model == "shopping_list" and operation == "update" %}
+                <a href="{% url 'list_delete' list.pk %}">
+                    <div class="button background-red mt-2">
+                        <p class="bold color-white">{% translate 'Löschen' %}<p>
+                    </div>
+                </a>
+            {% endif %}
+            {% if model == "shopping_list_item" and operation == "update" %}
+                <a href="{% url 'item_delete' item.pk %}">
+                    <div class="button background-red mt-2">
+                        <p class="bold color-white">{% translate 'Löschen' %}<p>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </form>
+</div>
