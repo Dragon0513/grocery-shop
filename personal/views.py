@@ -94,7 +94,7 @@ class ShoppingListView(LoginRequiredMixin, LegalRequirementMixin, generic.Detail
             status="in_progress"
         )
         context["items_done"] = shopping_list.shoppinglistitem_set.filter(status="done")
-        context["share"] = True
+        context["share"] = shopping_list.owner == self.request.user
         return context
 
     def dispatch(self, request, *args, **kwargs):
