@@ -1,0 +1,31 @@
+{% load static %}
+{% load i18n %}
+<div class="notes">
+    {% for note in notes %}
+    <a href="{% url 'note_update' note.pk %}" class="note
+        {% if note.color == 'red' %}red
+        {% elif note.color == 'orange' %}orange
+        {% elif note.color == 'yellow' %}yellow
+        {% elif note.color == 'green' %}green
+        {% elif note.color == 'cyan' %}cyan
+        {% elif note.color == 'blue' %}blue
+        {% elif note.color == 'purple' %}purple
+        {% else %}gray
+        {% endif %}">
+        <div class="header">
+            <p>{{ note.title }}</p>
+        </div>
+        <div class="main">
+            <p>{{ note.content }}</p>
+        </div>
+    </a>
+    {% empty %}
+    <div class="notes">
+        <div class="note">
+            <div class="main">
+                <p class="color-gray">{% translate 'Keine Notizen' %}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

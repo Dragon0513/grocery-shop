@@ -61,13 +61,19 @@ def custom_logout(request):
     return redirect("home")
 
 
-class HomeView(
+class HomeView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
+    model = User
+    template_name = "pages/root/home.html"
+    login_url = reverse_lazy("login")
+
+
+class CategoriesView(
     LoginRequiredMixin,
     LegalRequirementMixin,
     generic.ListView,
 ):
     model = Category
-    template_name = "pages/root/home.html"
+    template_name = "pages/categories.html"
     login_url = reverse_lazy("login")
 
     def get_context_data(self, **kwargs):

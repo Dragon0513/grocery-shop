@@ -129,7 +129,7 @@ main {
     font-size: 1.1rem;
 }
 
-.card p, .card form input, .card ul, .card ul li, .card select, .card form select {
+.card p, .card form input, .card ul, .card ul li, .card select, .card form select, .card form textarea, .card textarea {
     color: #717171;
     font-size: 0.8rem;
 }
@@ -143,12 +143,16 @@ main {
     text-decoration: none;
 }
 
-.card form input, .card form select {
+.card form input, .card form select, .card form textarea {
     height: 32px;
     border: none;
     background-color: #F5F5F5;
     padding: 0 8px;
     border-radius: 5px;
+}
+
+.card form textarea {
+    padding: 8px;
 }
 
 .card form button, .search form button {
@@ -218,6 +222,10 @@ main {
     color: #A70000 !important
 }
 
+.color-gray {
+    color: #717171;
+}
+
 .background-gray {
     background-color: #BEBEBE;
 }
@@ -252,6 +260,114 @@ main {
 
 .background-olive {
     background-color: #5F8B00;
+}
+
+
+.notes {
+    margin: 0 auto;
+    max-width: 302px;
+    width: 100%;
+    display: grid;
+    grid-row-gap: 16px;
+
+    .note {
+        width: 100%;
+        text-decoration: none;
+        color: black;
+    }
+
+    .note .header {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-weight: bold;
+    }
+
+    .note .main {
+        padding: 8px;
+        min-height: 256px;
+    }
+
+    .gray {
+        .header {
+            background-color: #C9C9C9;
+        }
+
+        .main {
+            background-color: #E0E0E0;
+        }
+    }
+
+    .red {
+        .header {
+            background-color: #FF9E9E;
+        }
+
+        .main {
+            background-color: #FFBBBB;
+        }
+    }
+
+    .orange {
+        .header {
+            background-color: #FFC19E;
+        }
+
+        .main {
+            background-color: #FFD7BB;
+        }
+    }
+
+    .yellow {
+        .header {
+            background-color: #FFE49E;
+        }
+
+        .main {
+            background-color: #FFF0BB;
+        }
+    }
+
+    .green {
+        .header {
+            background-color: #97F99B;
+        }
+
+        .main {
+            background-color: #BBFFBD;
+        }
+    }
+
+    .cyan {
+        .header {
+            background-color: #97F9ED;
+        }
+
+        .main {
+            background-color: #BBFFFB;
+        }
+    }
+
+    .blue {
+        .header {
+            background-color: #97D6F9;
+        }
+
+        .main {
+            background-color: #BBE6FF;
+        }
+    }
+
+    .purple {
+        .header {
+            background-color: #E597F9;
+        }
+
+        .main {
+            background-color: #F1BBFF;
+        }
+    }
 }
 
 .categories {
@@ -308,7 +424,7 @@ main {
     font-weight: bold;
 }
 
-.foods, .lists, .items {
+.foods, .lists, .items, .tasks {
     padding: 0 16px;
     margin-bottom: 64px;
 }
@@ -408,6 +524,18 @@ main {
     width: 32px;
 }
 
+.tasks .task {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    text-decoration: none;
+    padding: 0 16px;
+}
 
 .items .item {
     background-color: white;

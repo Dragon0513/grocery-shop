@@ -12,10 +12,10 @@
         <title>{% translate 'Home' %}</title>
     </head>
     <body>
-        {% include 'components/header/system.html' %}
+        {% include 'components/header/system.html' with icon_left=category.icon title=category.name %}
         <main>
-            {% include 'components/grid/home.html' %}
+            {% include 'components/grid/category.html' %}
             {% include 'components/cards/legal.html' %}
         </main>
-        {% include 'components/footer/system.html' with page="home" %}
+        {% include 'components/footer/system.html' with page="categories" %}
     </body>

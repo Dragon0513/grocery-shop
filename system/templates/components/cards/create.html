@@ -16,44 +16,82 @@
                     required>
             {% endif %}
             {% if model == "shopping_list_item" %}
-            <div class="item_food">
-                <div class="icon">
-                    {% if operation == "update" %}
-                    <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ item.food.section.category.icon }}" height="100%%"/>
-                    {% else %}
-                    <img src="{% static 'svgs/category/' %}{{ food.section.category.icon }}.svg" alt="{{ food.section.category.icon }}" height="100%%"/>
-                    {% endif %}
+                <div class="item_food">
+                    <div class="icon">
+                        {% if operation == "update" %}
+                        <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ item.food.section.category.icon }}" height="100%%"/>
+                        {% else %}
+                        <img src="{% static 'svgs/category/' %}{{ food.section.category.icon }}.svg" alt="{{ food.section.category.icon }}" height="100%%"/>
+                        {% endif %}
+                    </div>
+                    <div class="p_container">
+                        {% if operation == "update" %}
+                        <p>{{ item.food.name }} ({{ item.food.section.category }})</p>
+                        {% else %}
+                        <p>{{ food.name }} ({{ food.section.category }})</p>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="p_container">
-                    {% if operation == "update" %}
-                    <p>{{ item.food.name }} ({{ item.food.section.category }})</p>
-                    {% else %}
-                    <p>{{ food.name }} ({{ food.section.category }})</p>
-                    {% endif %}
-                </div>
-            </div>
+                <input
+                    type="text"
+                    name="quantity"
+                    placeholder="{% translate 'Menge' %}"
+                    {% if operation == "update" %} value="{{ item.quantity }}" {% endif %}
+                    required>
+                <select name="unit" required>
+                    <option value="kg" {% if operation == "update" and item.unit == 'kg' %}selected{% endif %}>{% translate 'Einheit: KG' %}</option>
+                    <option value="g" {% if operation == "update" and item.unit == 'g' %}selected{% endif %}>{% translate 'Einheit: G' %}</option>
+                    <option value="mg" {% if operation == "update" and item.unit == 'mg' %}selected{% endif %}>{% translate 'Einheit: MG' %}</option>
+                    <option value="l" {% if operation == "update" and item.unit == 'l' %}selected{% endif %}>{% translate 'Einheit: L' %}</option>
+                </select>
+                <input
+                    type="text"
+                    name="unit_per_item"
+                    placeholder="{% translate 'Einheit pro Stück' %}"
+                    {% if operation == "update" %} value="{{ item.unit_per_item }}" {% endif %}
+                    required>
+                <select name="status" required>
+                    <option value="not_done" {% if operation == "update" and item.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
+                    <option value="in_progress" {% if operation == "update" and item.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
+                    <option value="done" {% if operation == "update" and item.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
+                </select>
+            {% endif %}
+            {% if model == "task" %}
             <input
                 type="text"
-                name="quantity"
-                placeholder="{% translate 'Menge' %}"
-                {% if operation == "update" %} value="{{ item.quantity }}" {% endif %}
-                required>
-            <select name="unit" required>
-                <option value="kg" {% if operation == "update" and item.unit == 'kg' %}selected{% endif %}>{% translate 'Einheit: KG' %}</option>
-                <option value="g" {% if operation == "update" and item.unit == 'g' %}selected{% endif %}>{% translate 'Einheit: G' %}</option>
-                <option value="mg" {% if operation == "update" and item.unit == 'mg' %}selected{% endif %}>{% translate 'Einheit: MG' %}</option>
-                <option value="l" {% if operation == "update" and item.unit == 'l' %}selected{% endif %}>{% translate 'Einheit: L' %}</option>
-            </select>
-            <input
-                type="text"
-                name="unit_per_item"
-                placeholder="{% translate 'Einheit pro Stück' %}"
-                {% if operation == "update" %} value="{{ item.unit_per_item }}" {% endif %}
+                name="text"
+                placeholder="{% translate 'Text' %}"
+                maxlength="50"
+                {% if operation == "update" %} value="{{ task.text }}" {% endif %}
                 required>
             <select name="status" required>
-                <option value="not_done" {% if operation == "update" and item.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
-                <option value="in_progress" {% if operation == "update" and item.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
-                <option value="done" {% if operation == "update" and item.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
+                <option value="not_done" {% if operation == "update" and task.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
+                <option value="in_progress" {% if operation == "update" and task.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
+                <option value="done" {% if operation == "update" and task.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
+            </select>
+            {% endif %}
+            {% if model == "note" %}
+            <input
+                type="text"
+                name="title"
+                placeholder="{% translate 'Titel' %}"
+                maxlength="10"
+                {% if operation == "update" %} value="{{ note.title }}" {% endif %}
+                required>
+                <textarea
+                    name="content"
+                    placeholder="{% translate 'Inhalt' %}"
+                    maxlength="200"
+                    required>{{ note.content }}</textarea>
+            <select name="color" required>
+                <option value="gray" {% if operation == "update" and note.color == 'gray' %}selected{% endif %}>{% translate 'Grau' %}</option>
+                <option value="red" {% if operation == "update" and note.color == 'red' %}selected{% endif %}>{% translate 'Rot' %}</option>
+                <option value="orange" {% if operation == "update" and note.color == 'orange' %}selected{% endif %}>{% translate 'Orange' %}</option>
+                <option value="yellow" {% if operation == "update" and note.color == 'yellow' %}selected{% endif %}>{% translate 'Gelb' %}</option>
+                <option value="green" {% if operation == "update" and note.color == 'green' %}selected{% endif %}>{% translate 'Grün' %}</option>
+                <option value="cyan" {% if operation == "update" and note.color == 'cyan' %}selected{% endif %}>{% translate 'Türkis' %}</option>
+                <option value="blue" {% if operation == "update" and note.color == 'blue' %}selected{% endif %}>{% translate 'Blau' %}</option>
+                <option value="purple" {% if operation == "update" and note.color == 'purple' %}selected{% endif %}>{% translate 'Violett' %}</option>
             </select>
             {% endif %}
         </div>
@@ -72,6 +110,20 @@
             {% endif %}
             {% if model == "shopping_list_item" and operation == "update" %}
                 <a href="{% url 'item_delete' item.pk %}">
+                    <div class="button background-red mt-2">
+                        <p class="bold color-white">{% translate 'Löschen' %}<p>
+                    </div>
+                </a>
+            {% endif %}
+            {% if model == "task" and operation == "update" %}
+                <a href="{% url 'task_delete' task.pk %}">
+                    <div class="button background-red mt-2">
+                        <p class="bold color-white">{% translate 'Löschen' %}<p>
+                    </div>
+                </a>
+            {% endif %}
+            {% if model == "note" and operation == "update" %}
+                <a href="{% url 'note_delete' note.pk %}">
                     <div class="button background-red mt-2">
                         <p class="bold color-white">{% translate 'Löschen' %}<p>
                     </div>
