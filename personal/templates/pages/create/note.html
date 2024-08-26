@@ -14,8 +14,7 @@
     <body>
         {% include 'components/header/system.html' %}
         <main>
-            {% include 'components/grid/home.html' %}
-            {% include 'components/cards/legal.html' %}
+            {% include 'components/cards/create.html' with title=title model="note" %}
         </main>
-        {% include 'components/footer/system.html' with page="home" %}
+        {% include 'components/footer/system.html' with page="list" %}
     </body>

@@ -6,7 +6,14 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
 from django.views import generic
 
-from personal.models import Category, Food, Section, ShoppingList, ShoppingListItem
+from personal.models import (
+    Category,
+    Food,
+    Note,
+    Section,
+    ShoppingList,
+    ShoppingListItem,
+)
 from system.mixins import LegalRequirementMixin
 
 User = get_user_model()
@@ -267,3 +274,63 @@ class DeleteShoppingListItemView(LoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("list", kwargs={"pk": self.object.shopping_list.pk})
+
+
+class AllNotesView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
+    model = Note
+    template_name = "pages/notes.html"
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["notes"] = Note.objects.filter(owner=self.request.user)
+
+        return context
+
+
+class CreateNoteView(LoginRequiredMixin, LegalRequirementMixin, generic.CreateView):
+    model = Note
+    fields = ["title", "content", "color"]
+    template_name = "pages/create/note.html"
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = _("Notiz")
+        return context
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("notes")
+
+
+class UpdateNoteView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateView):
+    model = Note
+    fields = ["title", "content", "color"]
+    template_name = "pages/create/note.html"
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = _("Notiz")
+        context["operation"] = "update"
+        return context
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("notes")
+
+
+class DeleteNoteView(LoginRequiredMixin, generic.DeleteView):
+    model = Note
+    template_name = "pages/root/account_delete.html"
+    login_url = reverse_lazy("login")
+
+    def get_success_url(self):
+        return reverse_lazy("notes")

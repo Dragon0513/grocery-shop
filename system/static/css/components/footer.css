@@ -8,9 +8,9 @@ footer {
 }
 
 .footer-authenticated {
-    grid-template-columns: 1fr 48px 1fr 48px 1fr;
+    grid-template-columns: 1fr 48px 48px 1fr;
     grid-template-areas:
-        ". home . account .";
+        ". home account .";
 }
 
 .footer-unauthenticated {
@@ -33,6 +33,10 @@ footer .icon img {
 
 footer .home {
     grid-area: home;
+}
+
+.footer-authenticated .note {
+    grid-area: note;
 }
 
 .footer-authenticated .account {

@@ -82,3 +82,30 @@ class ShoppingListItem(models.Model):
 
     def __str__(self):
         return f"{self.food.name} ({self.quantity} {self.get_unit_display()}) in {self.shopping_list.name}"
+
+
+class Note(models.Model):
+    COLORS = [
+        ("gray", _("Grau")),
+        ("red", _("Rot")),
+        ("orange", _("Orange")),
+        ("yellow", _("Gelb")),
+        ("green", _("Grün")),
+        ("cyan", _("Türkis")),
+        ("blue", _("Blau")),
+        ("purple", _("Violett")),
+    ]
+    title = models.CharField(verbose_name=_("Titel"), max_length=10)
+    content = models.TextField(verbose_name=_("Inhalte"), max_length=200)
+    color = models.CharField(
+        verbose_name=_("Farben"),
+        max_length=10,
+        choices=COLORS,
+        default="gray",
+    )
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+    )
+
+    def __str__(self):
+        return f"{self.title} - Owner: {self.owner}"

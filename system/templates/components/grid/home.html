@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+<div class="categories">
+    <a href="{% url 'categories' %}" class="category">
+        <div class="category-grid">
+            <div class="icon">
+                <img src="{% static 'svgs/shaker.svg' %}" alt="shaker" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{% translate 'Zutaten' %}</p>
+            </div>
+        </div>
+    </a>
+    <a href="" class="category">
+        <div class="category-grid">
+            <div class="icon">
+                <img src="{% static 'svgs/format-list-checkbox.svg' %}" alt="shaker" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{% translate 'Aufgaben' %}</p>
+            </div>
+        </div>
+    </a>
+    <a href="{% url 'notes' %}" class="category">
+        <div class="category-grid">
+            <div class="icon">
+                <img src="{% static 'svgs/note.svg' %}" alt="shaker" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{% translate 'Notizen' %}</p>
+            </div>
+        </div>
+    </a>
+</div>
