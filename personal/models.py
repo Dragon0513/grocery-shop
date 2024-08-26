@@ -109,3 +109,23 @@ class Note(models.Model):
 
     def __str__(self):
         return f"{self.title} - Owner: {self.owner}"
+
+
+class Task(models.Model):
+    STATUS = [
+        ("not_done", _("Nicht erledigt")),
+        ("in_progress", _("In Bearbeitung")),
+        ("done", _("Erledigt")),
+    ]
+
+    text = models.CharField(verbose_name=_("Titel"), max_length=50)
+    status = models.CharField(
+        verbose_name=_("Status"),
+        max_length=20,
+        choices=STATUS,
+        default="not_done",
+    )
+
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+    )

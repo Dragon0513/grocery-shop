@@ -424,7 +424,7 @@ main {
     font-weight: bold;
 }
 
-.foods, .lists, .items {
+.foods, .lists, .items, .tasks {
     padding: 0 16px;
     margin-bottom: 64px;
 }
@@ -524,6 +524,18 @@ main {
     width: 32px;
 }
 
+.tasks .task {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    text-decoration: none;
+    padding: 0 16px;
+}
 
 .items .item {
     background-color: white;

@@ -56,6 +56,20 @@
                     <option value="done" {% if operation == "update" and item.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
                 </select>
             {% endif %}
+            {% if model == "task" %}
+            <input
+                type="text"
+                name="text"
+                placeholder="{% translate 'Text' %}"
+                maxlength="50"
+                {% if operation == "update" %} value="{{ task.text }}" {% endif %}
+                required>
+            <select name="status" required>
+                <option value="not_done" {% if operation == "update" and task.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
+                <option value="in_progress" {% if operation == "update" and task.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
+                <option value="done" {% if operation == "update" and task.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
+            </select>
+            {% endif %}
             {% if model == "note" %}
             <input
                 type="text"
@@ -96,6 +110,13 @@
             {% endif %}
             {% if model == "shopping_list_item" and operation == "update" %}
                 <a href="{% url 'item_delete' item.pk %}">
+                    <div class="button background-red mt-2">
+                        <p class="bold color-white">{% translate 'Löschen' %}<p>
+                    </div>
+                </a>
+            {% endif %}
+            {% if model == "task" and operation == "update" %}
+                <a href="{% url 'task_delete' task.pk %}">
                     <div class="button background-red mt-2">
                         <p class="bold color-white">{% translate 'Löschen' %}<p>
                     </div>
