@@ -64,6 +64,7 @@ def custom_logout(request):
 class HomeView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
     model = User
     template_name = "pages/root/home.html"
+    login_url = reverse_lazy("login")
 
 
 class CategoriesView(
