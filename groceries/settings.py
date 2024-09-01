@@ -15,6 +15,7 @@ from pathlib import Path
 from configurations import Configuration, values
 
 
+# This commentary only exist to check my changes in commit and if it's pushable. I changed the repository name.
 class Base(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
