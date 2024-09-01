@@ -32,11 +32,11 @@ class SignUpForm(ModelForm):
             raise forms.ValidationError("Username ist ein Pflichtfeld")
         if " " in username:
             raise forms.ValidationError(
-                "Benutzername ist nur diese Format ist erlaubt 'vorname_nachname'. Daten von Majestic!"
+                "Benutzername darf weder Sonderzeichen, Lücken, noch Grossbuchstaben enthalten."
             )
         if not re.match("^[a-z0-9_.]+$", username):
             raise forms.ValidationError(
-                "Benutzername ist nur diese Format ist erlaubt 'vorname_nachname'. Daten von Majestic!"
+                "Benutzername darf weder Sonderzeichen, Lücken, noch Grossbuchstaben enthalten."
             )
         return username.lower()
 
