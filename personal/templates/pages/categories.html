@@ -12,6 +12,7 @@
         <title>{% translate 'Home' %}</title>
     </head>
     <body>
+        {% include 'components/errors/mobile.html' %}
         {% include 'components/header/system.html' with icon_left=category.icon title=category.name %}
         <main>
             {% include 'components/grid/category.html' %}
