@@ -108,7 +108,8 @@ class AccountDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("login")
 
     def get_object(self):
-        return self.request.user
+        if self.request.user.is_authenticated:
+            return self.request.user
 
 
 class ImpressumView(generic.ListView):
@@ -116,14 +117,15 @@ class ImpressumView(generic.ListView):
     template_name = "pages/legal/impressum.html"
 
 
-class PrivacyView(LoginRequiredMixin, generic.UpdateView):
+class PrivacyView(generic.UpdateView):
     model = LegalUser
     fields = []
     template_name = "pages/legal/privacy.html"
     success_url = reverse_lazy("disclaimer")
 
     def get_object(self, queryset=None):
-        return self.request.user.legaluser
+        if self.request.user.is_authenticated:
+            return self.request.user.legaluser
 
     def form_valid(self, form):
         form.instance.privacy = True
@@ -135,14 +137,15 @@ class PrivacyView(LoginRequiredMixin, generic.UpdateView):
         )
 
 
-class DisclaimerView(LoginRequiredMixin, generic.UpdateView):
+class DisclaimerView(generic.UpdateView):
     model = LegalUser
     fields = []
     template_name = "pages/legal/disclaimer.html"
     success_url = reverse_lazy("home")
 
     def get_object(self, queryset=None):
-        return self.request.user.legaluser
+        if self.request.user.is_authenticated:
+            return self.request.user.legaluser
 
     def form_valid(self, form):
         form.instance.disclaimer = True
@@ -154,7 +157,7 @@ class DisclaimerView(LoginRequiredMixin, generic.UpdateView):
         )
 
 
-class TermsView(LoginRequiredMixin, generic.UpdateView):
+class TermsView(generic.UpdateView):
     model = LegalUser
     fields = []
     template_name = "pages/legal/terms.html"
