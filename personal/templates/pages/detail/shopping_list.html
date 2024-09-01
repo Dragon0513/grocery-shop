@@ -12,6 +12,7 @@
         <title>{% translate 'Home' %}</title>
     </head>
     <body>
+        {% include 'components/errors/mobile.html' %}
         {% if request.user == shopping_list.owner %}
             {% include 'components/header/system.html' with title=shopping_list.name icon_left="shopping" share=share icon_share_url="list_share" icon_share_pk=shopping_list.pk icon_right="pencil" icon_right_url="list_update" icon_right_pk=shopping_list.pk %}
         {% else %}

@@ -12,6 +12,7 @@
         <title>{% translate 'Home' %}</title>
     </head>
     <body>
+        {% include 'components/errors/mobile.html' %}
         {% include 'components/header/system.html' %}
         <main>
             {% include 'components/cards/create.html' with title=title model="shopping_list_item" operation=operation %}

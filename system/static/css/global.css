@@ -25,6 +25,10 @@ main {
     overflow-y: auto;
 }
 
+.mobile-only {
+    display: None;
+}
+
 .swiss {
     color: red;
     font-weight: bold;
@@ -116,7 +120,7 @@ main {
     font-size: 0.7rem;
 }
 
-.card .bold {
+.bold {
     font-weight: bold;
 }
 
@@ -639,4 +643,33 @@ main {
     margin-left: 16px;
     font-size: 0.8rem;
     color: #717171;
+}
+
+@media only screen and (min-width: 750px) {
+    .mobile-only {
+        z-index: 1;
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #ffbeb3;
+    }
+
+    .mobile-only .message {
+        margin: 128px auto auto auto;
+        background-color: white;
+        padding: 16px;
+        border-radius: 10px;
+        width: 500px;
+    }
+
+    .mobile-only .title {
+        font-size: 1.5rem;
+    }
+
+    .mobile-only p {
+        display: flex;
+        justify-content: center;
+    }
+
 }
