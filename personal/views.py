@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
@@ -106,11 +107,12 @@ class ShoppingListView(LoginRequiredMixin, LegalRequirementMixin, generic.Update
         items = shopping_list.shoppinglistitem_set.all()
 
         for item in items:
-            checkbox_value = request.POST.get(f"item_{item.pk}", "off")
-            item.status = True if checkbox_value == "on" else False
-            item.save()
+            checkbox_value = request.POST.get(f"item_{item.pk}", None)
+            if checkbox_value is not None:
+                item.status = checkbox_value == "on"
+                item.save()
 
-        return redirect(reverse("list", kwargs={"pk": shopping_list.pk}))
+        return JsonResponse({"status": "success"})
 
     def dispatch(self, request, *args, **kwargs):
         shopping_list = self.get_object()
