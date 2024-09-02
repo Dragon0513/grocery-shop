@@ -8,7 +8,7 @@ from django.views import generic
 
 from personal.models import Category
 from system.forms import LoginForm, SignUpForm
-from system.models import LegalUser
+from system.models import LegalUser, SocialUser
 
 from .mixins import LegalRequirementMixin
 
@@ -79,6 +79,22 @@ class CategoriesView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
+        return context
+
+
+class AccountView(LoginRequiredMixin, generic.ListView):
+    model = User
+    template_name = "pages/root/account.html"
+
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        social_user = SocialUser.objects.get(user=self.request.user)
+
+        context["friends"] = social_user.friends.count()
+
         return context
 
 

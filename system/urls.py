@@ -1,6 +1,7 @@
 from django.urls import path
 
 from system.views import (
+    AccountView,
     DisclaimerView,
     HomeView,
     ImpressumView,
@@ -16,6 +17,7 @@ from . import views
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
+    path("account/", AccountView.as_view(), name="account"),
     path("settings/", SettingsView.as_view(), name="settings"),
     path(
         "settings/update/<int:pk>", SettingsUpdateView.as_view(), name="settings_update"

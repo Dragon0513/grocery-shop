@@ -38,6 +38,12 @@
             <img src="{% static 'svgs/plus.svg' %}" height="100%"/>
         </a>
         {% endif %}
+    {% elif icon_right == 'cog' %}
+        {% if icon_right_url %}
+        <a href="{% url icon_right_url %}" class="icon-right">
+            <img src="{% static 'svgs/cog.svg' %}" height="100%"/>
+        </a>
+        {% endif %}
     {% else %}
         <a href="{% url 'lists' %}" class="icon-right">
         <img src="{% static 'svgs/shopping.svg' %}" height="100%"/>

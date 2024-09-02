@@ -1,0 +1,25 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="profile-container">
+        <div class="profile">
+            <div class="picture">
+                <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p class="title">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                <p>@{{ request.user.username }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="stat">
+        <div class="friends">
+            <p class="title">{% translate 'Freunde' %}</p>
+            <p>{{ friends }}</p>
+        </div>
+        <div class="achievements">
+            <p class="title">{% translate 'Errungenschaften' %}</p>
+            <p>-</p>
+        </div>
+    </div>
+</div>

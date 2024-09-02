@@ -76,6 +76,78 @@ main {
     box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
 }
 
+.card .profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
+
+.card .profile-container .profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 64px;
+    grid-template-areas:
+        "picture"
+        "name";
+    grid-row-gap: 16px;
+}
+
+.card .profile-container .profile .picture {
+    grid-area: picture;
+    filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
+}
+
+.card .profile-container .profile .picture img {
+    height: 100%;
+    width: 100%;
+}
+
+.card .profile-container .profile .name {
+    grid-area: name;
+}
+
+.card .profile-container .profile .name .title {
+    color: black !important;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card .profile-container .profile .name p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.card .stat {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "friends achievements";
+}
+
+.card .stat .friends {
+    grid-area: friends;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card .stat .achievements {
+    grid-area: achievements;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card .stat .friends .title, .card .stat .achievements .title {
+    color: black;
+    font-weight: bold;
+    margin: 2px;
+}
+
 .card .header {
     display: flex;
     align-items: center;
