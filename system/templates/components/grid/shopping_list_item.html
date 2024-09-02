@@ -57,15 +57,21 @@
                 const itemId = this.dataset.itemId;
                 const isChecked = this.checked;
 
+                const data = new URLSearchParams();
+                data.append(`item_${itemId}`, isChecked ? 'on' : 'off');
+
                 fetch("{% url 'list' shopping_list.pk %}", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                         "X-CSRFToken": "{{ csrf_token }}"
                     },
-                    body: `item_${itemId}=${isChecked ? 'on' : 'off'}`
+                    body: data.toString()
                 })
                 .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerkantwort war nicht ok');
+                    }
                 })
                 .catch(error => {
                     console.error('Fehler:', error);
@@ -74,4 +80,5 @@
             });
         });
     });
+
 </script>
