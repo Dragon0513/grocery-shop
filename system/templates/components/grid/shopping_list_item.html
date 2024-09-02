@@ -1,83 +1,38 @@
 {% load static %}
 {% load i18n %}
+{% load static %}
+{% load i18n %}
 <div class="personal">
-    <div>
-    <p class="title">{% translate 'Zu erledigen' %}</p>
+    <p class="title">{% translate 'Einkaufsliste' %}</p>
     <div class="items">
-    {% for item in items_to_do %}
-        <a href="{% url 'item_update' item.pk %}" class="item">
-            <div class="quantity
-            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
-            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
-            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
-            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
-            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
-            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
-            ">
-                <p>{{ item.quantity }}</p>
+    {% for item in items %}
+        <div class="item-grid">
+            <a href="{% url 'item_update' item.pk %}" class="item">
+                <div class="quantity
+                {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
+                {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
+                {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
+                {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
+                {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
+                {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
+                ">
+                    <p>{{ item.quantity }}</p>
+                </div>
+                <div class="name">
+                    <p>{{ item.food.name }}</p>
+                </div>
+                <div class="unit">
+                    <p>{{ item.unit_per_item }}{{ item.unit }}</p>
+                </div>
+                <div class="category-item">
+                    <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ item.food.section.category.icon }}" height="100%"/>
+                </div>
+            </a>
+            <div class="checkbox">
+                <input type="checkbox" id="item_{{ item.pk }}" name="item_{{ item.pk }}" {% if item.status %}checked{% endif %}
+                       data-item-id="{{ item.pk }}" class="status-checkbox">
             </div>
-            <div class="name">
-                <p>{{ item.food.name }}</p>
-            </div>
-            <div class="unit">
-                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
-            </div>
-            <div class="category-item">
-                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
-            </div>
-        </a>
-    {% endfor %}
-    </div>
-    <p class="title">{% translate 'In Bearbeitung' %}</p>
-    <div class="items">
-    {% for item in items_in_progress %}
-        <a href="{% url 'item_update' item.pk %}" class="item">
-            <div class="quantity
-            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
-            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
-            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
-            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
-            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
-            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
-            ">
-                <p>{{ item.quantity }}</p>
-            </div>
-            <div class="name">
-                <p>{{ item.food.name }}</p>
-            </div>
-            <div class="unit">
-                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
-            </div>
-            <div class="category-item">
-                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
-            </div>
-        </a>
-    {% endfor %}
-    </div>
-    <p class="title">{% translate 'Erledigt' %}</p>
-    <div class="items">
-    {% for item in items_done %}
-        <a href="{% url 'item_update' item.pk %}" class="item">
-            <div class="quantity
-            {% if item.food.section.category.name == "Gemüse" %}background-orange{%endif%}
-            {% if item.food.section.category.name == "Früchte" %}background-light-red{%endif%}
-            {% if item.food.section.category.name == "Fisch" %}background-cyan{%endif%}
-            {% if item.food.section.category.name == "Fleisch" %}background-brown{%endif%}
-            {% if item.food.section.category.name == "Milch / Eier" %}background-beige{%endif%}
-            {% if item.food.section.category.name == "Öle" %}background-olive{%endif%}
-            ">
-                <p>{{ item.quantity }}</p>
-            </div>
-            <div class="name">
-                <p>{{ item.food.name }}</p>
-            </div>
-            <div class="unit">
-                <p>{{ item.unit_per_item }}{{ item.unit }}</p>
-            </div>
-            <div class="category-item">
-                <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ category.icon }}" height="100%"/>
-            </div>
-        </a>
+        </div>
     {% endfor %}
     </div>
     <div class="sharing">
@@ -93,3 +48,30 @@
         {% endfor %}
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.status-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const itemId = this.dataset.itemId;
+                const isChecked = this.checked;
+
+                fetch("{% url 'list' shopping_list.pk %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: `item_${itemId}=${isChecked ? 'on' : 'off'}`
+                })
+                .then(response => {
+                })
+                .catch(error => {
+                    console.error('Fehler:', error);
+                    alert("Es ist ein Fehler aufgetreten.");
+                });
+            });
+        });
+    });
+</script>

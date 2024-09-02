@@ -69,15 +69,9 @@ class ShoppingListItem(models.Model):
     unit_per_item = models.DecimalField(
         verbose_name=_("Einheit pro Stück"), max_digits=10, decimal_places=2, default=1
     )
-    status = models.CharField(
+    status = models.BooleanField(
         verbose_name=_("Status"),
-        max_length=20,
-        choices=[
-            ("not_done", _("Nicht erledigt")),
-            ("in_progress", _("In Bearbeitung")),
-            ("done", _("Erledigt")),
-        ],
-        default="not_done",
+        default=False,
     )
 
     def __str__(self):
