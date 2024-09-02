@@ -10,7 +10,7 @@ footer {
 .footer-authenticated {
     grid-template-columns: 1fr 48px 48px 1fr;
     grid-template-areas:
-        ". home account .";
+        ". home settings .";
 }
 
 .footer-unauthenticated {
@@ -39,10 +39,10 @@ footer .home {
     grid-area: note;
 }
 
-.footer-authenticated .account {
-    grid-area: account;
+.footer-authenticated .settings {
+    grid-area: settings;
 }
 
-.footer-unauthenticated .account {
+.footer-unauthenticated .settings {
     display: none;
 }

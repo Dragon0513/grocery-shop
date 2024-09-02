@@ -158,7 +158,7 @@ class UpdateShoppingListView(
 
 class DeleteShoppingListView(LoginRequiredMixin, generic.DeleteView):
     model = ShoppingList
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     success_url = reverse_lazy("lists")
     login_url = reverse_lazy("login")
 
@@ -279,7 +279,7 @@ class UpdateShoppingListItemView(
 
 class DeleteShoppingListItemView(LoginRequiredMixin, generic.DeleteView):
     model = ShoppingListItem
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
@@ -339,7 +339,7 @@ class UpdateNoteView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateVi
 
 class DeleteNoteView(LoginRequiredMixin, generic.DeleteView):
     model = Note
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
@@ -403,7 +403,7 @@ class UpdateTaskView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateVi
 
 class DeleteTaskView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):

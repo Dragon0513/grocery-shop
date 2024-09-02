@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 <div class="card">
-    <form method="post" action="{% url 'account_update' pk=request.user.pk %}">
+    <form method="post" action="{% url 'settings_update' pk=request.user.pk %}">
         <div class="header">
             <h1>{% translate 'Konto' %}</h1>
         </div>
@@ -39,7 +39,7 @@
                     <p class="bold color-white">{% translate 'Abmelden' %}<p>
                 </div>
             </a>
-            <a href="{% url 'account_delete' %}">
+            <a href="{% url 'settings_delete' %}">
                 <div class="button background-red mt-2">
                     <p class="bold color-white">{% translate 'Konto löschen' %}</p>
                 </div>

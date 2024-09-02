@@ -82,27 +82,27 @@ class CategoriesView(
         return context
 
 
-class AccountView(LoginRequiredMixin, generic.ListView):
+class SettingsView(LoginRequiredMixin, generic.ListView):
     model = User
-    template_name = "pages/root/account.html"
+    template_name = "pages/root/settings.html"
 
     login_url = reverse_lazy("login")
 
 
-class AccountUpdateView(LoginRequiredMixin, generic.UpdateView):
+class SettingsUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = User
-    template_name = "pages/root/account_update.html"
+    template_name = "pages/root/settings_update.html"
     fields = ["first_name", "last_name", "username", "email"]
 
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
-        return reverse_lazy("account")
+        return reverse_lazy("settings")
 
 
-class AccountDeleteView(LoginRequiredMixin, generic.DeleteView):
+class SettingsDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = User
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     success_url = reverse_lazy("home")
 
     login_url = reverse_lazy("login")

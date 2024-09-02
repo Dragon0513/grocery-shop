@@ -10,7 +10,7 @@
         </div>
         <div class="action">
             <button class="background-red" type="submit">{% translate "Bestätigen" %}</button>
-            <a href="{% url 'account_update' request.user.pk %}">
+            <a href="{% url 'settings_update' request.user.pk %}">
                 <div class="button background-gray mt-2">
                     <p class="bold color-white">{% translate 'Abbrechen' %}</p>
                 </div>
