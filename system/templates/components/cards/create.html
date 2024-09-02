@@ -50,11 +50,6 @@
                     placeholder="{% translate 'Einheit pro Stück' %}"
                     {% if operation == "update" %} value="{{ item.unit_per_item }}" {% endif %}
                     required>
-                <select name="status" required>
-                    <option value="not_done" {% if operation == "update" and item.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
-                    <option value="in_progress" {% if operation == "update" and item.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
-                    <option value="done" {% if operation == "update" and item.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
-                </select>
             {% endif %}
             {% if model == "task" %}
             <input

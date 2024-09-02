@@ -541,12 +541,24 @@ main {
     padding: 0 16px;
 }
 
-.items .item {
+
+.items .item-grid {
+    display: grid;
+    grid-template-columns: 1fr 64px;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "item checkbox";
+    grid-column-gap: 16px;
+    margin: 16px 0;
+
+}
+
+.items .item-grid .item {
+    grid-area: item;
     background-color: white;
     border-radius: 10px;
     box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
     display: flex;
-    margin: 16px 0;
     color: #717171;
     height: 64px;
     display: grid;
@@ -559,6 +571,18 @@ main {
         ". . .";
     text-decoration: none;
     grid-column-gap: 8px;
+}
+
+.items .item-grid .checkbox {
+    grid-area: checkbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.items .item-grid .checkbox input {
+    width: 100%;
+    height: 100%;
 }
 
 .items .item .quantity {

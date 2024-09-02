@@ -85,25 +85,32 @@ class CreateShoppingListView(
         return reverse_lazy("home")
 
 
-class ShoppingListView(LoginRequiredMixin, LegalRequirementMixin, generic.DetailView):
+class ShoppingListView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateView):
     model = ShoppingList
     template_name = "pages/detail/shopping_list.html"
     login_url = reverse_lazy("login")
+    fields = []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shopping_list = self.get_object()
+        items = shopping_list.shoppinglistitem_set.all()
 
         context["shopping_list"] = shopping_list
-        context["items_to_do"] = shopping_list.shoppinglistitem_set.filter(
-            status="not_done"
-        )
-        context["items_in_progress"] = shopping_list.shoppinglistitem_set.filter(
-            status="in_progress"
-        )
-        context["items_done"] = shopping_list.shoppinglistitem_set.filter(status="done")
+        context["items"] = items
         context["share"] = shopping_list.owner == self.request.user
         return context
+
+    def post(self, request, *args, **kwargs):
+        shopping_list = self.get_object()
+        items = shopping_list.shoppinglistitem_set.all()
+
+        for item in items:
+            checkbox_value = request.POST.get(f"item_{item.pk}", "off")
+            item.status = True if checkbox_value == "on" else False
+            item.save()
+
+        return redirect(reverse("list", kwargs={"pk": shopping_list.pk}))
 
     def dispatch(self, request, *args, **kwargs):
         shopping_list = self.get_object()
@@ -216,7 +223,7 @@ class CreateShoppingListItemView(
     LoginRequiredMixin, LegalRequirementMixin, generic.CreateView
 ):
     model = ShoppingListItem
-    fields = ["quantity", "unit_per_item", "unit", "status"]
+    fields = ["quantity", "unit_per_item", "unit"]
     template_name = "pages/create/shopping_list_item.html"
     login_url = reverse_lazy("login")
 
@@ -250,7 +257,7 @@ class UpdateShoppingListItemView(
     LoginRequiredMixin, LegalRequirementMixin, generic.UpdateView
 ):
     model = ShoppingListItem
-    fields = ["quantity", "unit_per_item", "unit", "status"]
+    fields = ["quantity", "unit_per_item", "unit"]
     template_name = "pages/create/shopping_list_item.html"
     login_url = reverse_lazy("login")
 
