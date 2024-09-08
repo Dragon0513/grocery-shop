@@ -126,6 +126,29 @@ main {
         "friends achievements";
 }
 
+.card .social-action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "request block";
+    margin-bottom: 16px;
+}
+
+.card .social-action .request {
+    grid-area: request;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card .social-action .block {
+    grid-area: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card .stat .friends {
     grid-area: friends;
     display: flex;
@@ -272,6 +295,7 @@ main {
 }
 
 .button {
+    font-size: 0.8rem;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -280,6 +304,11 @@ main {
     border: none;
     font-weight: bold;
     width: 100%;
+}
+
+.button:disabled {
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+    color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
 }
 
 .mt-2 {
@@ -537,6 +566,44 @@ main {
     text-decoration: none;
 }
 
+.search_users .search_user {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 64px 1fr 64px;
+    grid-template-rows: 8px 24px 24px 8px;
+    grid-template-areas:
+        ". ."
+        "icon name"
+        "icon username"
+        ". .";
+    text-decoration: none;
+}
+
+.notifications .notification {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    display: grid;
+    grid-template-columns: 64px 1fr 1fr 64px;
+    grid-template-rows: 8px 24px 24px 48px 8px;
+    grid-template-areas:
+        ". . ."
+        "icon name name"
+        "icon username username"
+        "icon accept decline"
+        ". . .";
+    text-decoration: none;
+}
+
 .lists .list {
     background-color: white;
     border-radius: 10px;
@@ -556,14 +623,41 @@ main {
     text-decoration: none;
 }
 
-.lists .list .name, .shared_users .shared_user .name {
+.notifications .notification .accept {
+    grid-area: accept;
+    margin-top: 8px;
+    margin-right: 8px;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.notifications .notification .decline {
+    grid-area: decline;
+    margin-top: 8px;
+    margin-left: 8px;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.notifications .notification .accept p,
+.notifications .notification .decline p {
+    margin: 0;
+}
+
+.lists .list .name,
+.shared_users .shared_user .name,
+.search_users .search_user .name,
+.notifications .notification .name {
     grid-area: name;
     display: flex;
     align-items: center;
     font-weight: bold;
 }
 
-.lists .list .icon, .shared_users .shared_user .icon {
+.lists .list .icon,
+.shared_users .shared_user .icon,
+.search_users .search_user .icon,
+.notifications .notification .icon {
     grid-area: icon;
     display: flex;
     align-items: center;
@@ -571,7 +665,10 @@ main {
     filter: invert(42%) sepia(1%) saturate(1546%) hue-rotate(316deg) brightness(103%) contrast(81%);
 }
 
-.lists .list .icon img, .shared_users .shared_user img {
+.lists .list .icon img,
+.shared_users .shared_user img,
+.search_users .search_user img,
+.notifications .notification img {
     height: 32px;
     width: 32px;
 }
@@ -582,7 +679,9 @@ main {
     align-items: center;
 }
 
-.shared_users .shared_user .username {
+.shared_users .shared_user .username,
+.search_users .search_user .username,
+.notifications .notification .username {
     grid-area: username;
     display: flex;
     align-items: center;
@@ -729,10 +828,6 @@ main {
     background-color: white;
     padding: 0 8px;
     border-radius: 5px;
-}
-
-.sharing {
-
 }
 
 .sharing .sharing-user {

@@ -1,0 +1,65 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <div class="profile-container">
+        <div class="profile">
+            <div class="picture">
+                <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p class="title">{{ user.first_name }} {{ user.last_name }}</p>
+                <p>@{{ user.username }}&nbsp;{% if is_friend %}<span class="color-green">{% translate '(Freund)' %}</span>{% endif %}{% if is_blocked %}<span class="color-red">{% translate '(Blockiert)' %}</span>{% endif %}</p>
+            </div>
+        </div>
+    </div>
+    <div class="stat">
+        <a href="{% url 'profile_friends' user.pk %}" class="friends">
+            <p class="title">{% translate 'Freunde' %}</p>
+            <p>{{ friends }}</p>
+        </a>
+        <div class="achievements">
+            <p class="title">{% translate 'Errungenschaften' %}</p>
+            <p>-</p>
+        </div>
+    </div>
+    <div class="social-action">
+        <div class="request">
+            {% if is_friend %}
+                <form action="{% url 'remove_friend' user.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="background-green" type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Befreundet' %}</button>
+                </form>
+            {% elif is_friend_request_sent and not is_blocked %}
+                <form action="{% url 'cancel_friend_request' user.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Angefragt' %}</button>
+                </form>
+            {% else %}
+                {% if not is_blocked %}
+                    <form action="{% url 'send_friend_request' user.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Anfragen' %}</button>
+                    </form>
+                {% else %}
+                    <div>
+                        <button class="button" type="submit" disabled>{% translate 'Anfragen' %}</button>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="block">
+            {% if is_blocked %}
+                <form action="{% url 'unblock_user' user.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="background-red" type="submit">{% translate 'Freigeben' %}</button>
+                </form>
+            {% else %}
+                <form action="{% url 'block_user' user.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="background-red" type="submit">{% translate 'Blockieren' %}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+</div>

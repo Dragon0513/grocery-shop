@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <p class="title">{% translate 'Freundschaftsanfragen' %}</p>
+    <div class="notifications">
+    {% for notification in notifications %}
+        <div class="notification">
+            <div class="icon">
+                <img src="{% static 'svgs/bell.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ notification.first_name }} {{ notification.last_name }}</p>
+            </div>
+            <div class="username">
+                <p>@{{ notification.username }}</p>
+            </div>
+            <form action="{% url 'accept_friend_request' notification.pk %}" method="post" class="accept">
+                {% csrf_token %}
+                <button type="submit" class="background-green button">
+                    <p class="color-white">Akzeptieren</p>
+                </button>
+            </form>
+            <form action="{% url 'decline_friend_request' notification.pk %}" method="post" class="decline">
+                {% csrf_token %}
+                <button type="submit" class="background-red button">
+                    <p class="color-white">Ablehnen</p>
+                </button>
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+</div>

@@ -11,7 +11,25 @@
             {% endif %}
         </a>
     </div>
-    <div class="settings">
+    <div class="search">
+        <a href="{% url 'search' %}" class="icon">
+            {% if page == 'search' %}
+                <img src="{% static 'svgs/account-search.svg' %}" height="100%"/>
+            {% else %}
+                    <img src="{% static 'svgs/account-search-outline.svg' %}" height="100%"/>
+            {% endif %}
+        </a>
+    </div>
+    <div class="notifications">
+        <a href="{% url 'notifications' %}" class="icon">
+            {% if page == 'notifications' %}
+                <img src="{% static 'svgs/bell.svg' %}" height="100%"/>
+            {% else %}
+                    <img src="{% static 'svgs/bell-outline.svg' %}" height="100%"/>
+            {% endif %}
+        </a>
+    </div>
+    <div class="account">
         <a href="{% url 'account' %}" class="icon">
             {% if page == 'account' %}
                 <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>

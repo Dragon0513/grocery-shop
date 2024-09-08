@@ -13,10 +13,10 @@
         </div>
     </div>
     <div class="stat">
-        <div class="friends">
+        <a href="{% url 'profile_friends' request.user.pk %}" class="friends">
             <p class="title">{% translate 'Freunde' %}</p>
             <p>{{ friends }}</p>
-        </div>
+        </a>
         <div class="achievements">
             <p class="title">{% translate 'Errungenschaften' %}</p>
             <p>-</p>
