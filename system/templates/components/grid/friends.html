@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <p class="title">
+        {% translate 'Freunde von ' %} {{ object.first_name }} {{ object.last_name }}
+    </p>
+    <div class="search_users">
+    {% for friend_data in friends_with_status %}
+        <a href="{% url 'profile_detail' friend_data.user.pk %}" class="search_user">
+            <div class="icon">
+                <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ friend_data.user.first_name }} {{ friend_data.user.last_name }} {% if friend_data.user == request.user %}{% translate '(Du)' %}{% endif %}</p>
+            </div>
+            <div class="username">
+                <p>@{{ friend_data.user.username }}
+                    {% if friend_data.is_friend %}
+                        <span class="color-green">{% translate '(Freund)' %}</span>
+                    {% endif %}
+                    {% if friend_data.is_blocked %}
+                        <span class="color-red">{% translate '(Blockiert)' %}</span>
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+</div>

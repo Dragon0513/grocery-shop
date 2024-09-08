@@ -1,0 +1,20 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <p class="title">{% translate 'Benutzer' %}</p>
+    <div class="search_users">
+    {% for user in users_list %}
+        <a href="{% url 'profile_detail' user.user.pk %}" class="search_user">
+            <div class="icon">
+                <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
+            </div>
+            <div class="name">
+                <p>{{ user.user.first_name }} {{ user.user.last_name }}</p>
+            </div>
+            <div class="username">
+                <p>@{{ user.user.username }} {% if user.is_friend %}<span class="color-green">{% translate '(Freund)' %}</span>{% endif %}{% if user.is_blocked %}<span class="color-red">{% translate '(Blockiert)' %}</span>{% endif %}</p>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+</div>

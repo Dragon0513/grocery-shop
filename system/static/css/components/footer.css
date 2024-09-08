@@ -8,9 +8,10 @@ footer {
 }
 
 .footer-authenticated {
-    grid-template-columns: 1fr 48px 48px 1fr;
+    grid-template-columns: 1fr 48px 48px 48px 48px 1fr;
     grid-template-areas:
-        ". home account .";
+        ". home search notifications account .";
+    grid-column-gap: 24px;
 }
 
 .footer-unauthenticated {
@@ -39,10 +40,18 @@ footer .home {
     grid-area: note;
 }
 
+.footer-authenticated .search {
+    grid-area: search;
+}
+
+.footer-authenticated .notifications {
+    grid-area: notifications;
+}
+
 .footer-authenticated .account {
     grid-area: account;
 }
 
-.footer-unauthenticated .account {
+.footer-unauthenticated .search, .footer-unauthenticated .notifications, .footer-unauthenticated .account {
     display: none;
 }

@@ -17,6 +17,7 @@ from personal.models import (
     Task,
 )
 from system.mixins import LegalRequirementMixin
+from system.models import SocialUser
 
 User = get_user_model()
 
@@ -158,7 +159,7 @@ class UpdateShoppingListView(
 
 class DeleteShoppingListView(LoginRequiredMixin, generic.DeleteView):
     model = ShoppingList
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     success_url = reverse_lazy("lists")
     login_url = reverse_lazy("login")
 
@@ -179,10 +180,15 @@ class ShareShoppingListView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shopping_list = self.get_object()
-        users = User.objects.exclude(id=self.request.user.id)
+        current_user_social, created = SocialUser.objects.get_or_create(
+            user=self.request.user
+        )
 
-        context["users"] = users
+        friends = current_user_social.friends.all()
+
+        context["users"] = User.objects.exclude(id=self.request.user.id)
         context["shared_users"] = shopping_list.shared_with.all()
+        context["friends"] = friends
         return context
 
     def post(self, request, *args, **kwargs):
@@ -279,7 +285,7 @@ class UpdateShoppingListItemView(
 
 class DeleteShoppingListItemView(LoginRequiredMixin, generic.DeleteView):
     model = ShoppingListItem
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
@@ -339,7 +345,7 @@ class UpdateNoteView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateVi
 
 class DeleteNoteView(LoginRequiredMixin, generic.DeleteView):
     model = Note
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
@@ -403,7 +409,7 @@ class UpdateTaskView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateVi
 
 class DeleteTaskView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    template_name = "pages/root/account_delete.html"
+    template_name = "pages/root/settings_delete.html"
     login_url = reverse_lazy("login")
 
     def get_success_url(self):
