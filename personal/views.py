@@ -17,6 +17,7 @@ from personal.models import (
     Task,
 )
 from system.mixins import LegalRequirementMixin
+from system.models import SocialUser
 
 User = get_user_model()
 
@@ -179,10 +180,15 @@ class ShareShoppingListView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shopping_list = self.get_object()
-        users = User.objects.exclude(id=self.request.user.id)
+        current_user_social, created = SocialUser.objects.get_or_create(
+            user=self.request.user
+        )
 
-        context["users"] = users
+        friends = current_user_social.friends.all()
+
+        context["users"] = User.objects.exclude(id=self.request.user.id)
         context["shared_users"] = shopping_list.shared_with.all()
+        context["friends"] = friends
         return context
 
     def post(self, request, *args, **kwargs):

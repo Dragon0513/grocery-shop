@@ -3,9 +3,9 @@
 <form method="post">
     {% csrf_token %}
     <div class="personal">
-        <p class="title">{% translate 'Benutzer' %}</p>
+        <p class="title">{% translate 'Freunde' %}</p>
         <div class="shared_users">
-        {% for user in users %}
+        {% for user in friends %}
             <div class="shared_user">
                 <div class="icon">
                     <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
@@ -14,7 +14,7 @@
                     <p>{{ user.first_name }} {{ user.last_name }}</p>
                 </div>
                 <div class="username">
-                    <p>@{{ user.username }}</p>
+                    <p>@{{ user.username }} <span class="color-green">{% translate '(Freund)' %}</span></p>
                 </div>
                 <div class="checkbox">
                     <label>
