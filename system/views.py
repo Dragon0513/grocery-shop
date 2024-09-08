@@ -416,7 +416,8 @@ class TermsView(generic.UpdateView):
     success_url = reverse_lazy("home")
 
     def get_object(self, queryset=None):
-        return self.request.user.legaluser
+        if self.request.user.is_authenticated:
+            return self.request.user.legaluser
 
     def form_valid(self, form):
         form.instance.terms = True

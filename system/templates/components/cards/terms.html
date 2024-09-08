@@ -57,10 +57,10 @@
     <div class="action">
         {% if request.user.is_authenticated %}
             {% if not request.user.legaluser.terms %}
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn-form-action">{% translate "Zustimmen" %}</button>
-        </form>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-form-action">{% translate "Zustimmen" %}</button>
+                </form>
             {% endif %}
         {% endif %}
     </div>
