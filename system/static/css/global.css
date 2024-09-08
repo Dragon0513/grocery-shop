@@ -864,3 +864,14 @@ main {
     }
 
 }
+
+.authentication-app-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.authentication-app-logo img {
+    height: 96px;
+    width: 96px;
+}

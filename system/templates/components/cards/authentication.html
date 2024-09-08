@@ -1,6 +1,9 @@
 {% load static %}
 {% load i18n %}
 <div class="card">
+    <div class="authentication-app-logo">
+        <img src="{% static 'images/logo_groceries_list.jpeg' %}" height="100%"/>
+    </div>
     {% if auth_type == "login" %}
         <form method="post">
             <div class="header">
@@ -30,7 +33,7 @@
     {% if auth_type == "signup" %}
         <form method="post">
             <div class="header">
-                <h1>{% translate 'Anmelden' %}</h1>
+                <h1>{% translate 'Registrieren' %}</h1>
             </div>
             <div class="main">
                 {% csrf_token %}
