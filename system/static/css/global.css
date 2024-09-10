@@ -25,6 +25,10 @@ main {
     overflow-y: auto;
 }
 
+input[type="checkbox"] {
+    accent-color: #00A843;
+  }
+
 .mobile-only {
     display: None;
 }
