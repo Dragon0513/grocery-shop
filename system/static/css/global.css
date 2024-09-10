@@ -699,13 +699,13 @@ main {
     width: 32px;
 }
 
-.tasks .task {
+.tasks .task-grid .task {
+    grid-area: task;
     background-color: white;
     border-radius: 10px;
     box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
     display: flex;
     align-items: center;
-    margin: 16px 0;
     color: #717171;
     height: 64px;
     text-decoration: none;
@@ -721,7 +721,16 @@ main {
         "item checkbox";
     grid-column-gap: 16px;
     margin: 16px 0;
+}
 
+.tasks .task-grid {
+    display: grid;
+    grid-template-columns: 1fr 64px;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "task checkbox";
+    grid-column-gap: 16px;
+    margin: 16px 0;
 }
 
 .items .item-grid .item {
@@ -744,14 +753,16 @@ main {
     grid-column-gap: 8px;
 }
 
-.items .item-grid .checkbox {
+.items .item-grid .checkbox,
+.tasks .task-grid .checkbox {
     grid-area: checkbox;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.items .item-grid .checkbox input {
+.items .item-grid .checkbox input,
+.tasks .task-grid .checkbox input {
     width: 100%;
     height: 100%;
 }

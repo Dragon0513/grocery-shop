@@ -2,32 +2,21 @@
 {% load i18n %}
 <div class="personal">
     <div>
-        <p class="title">{% translate 'Zu erledigen' %}</p>
+        <p class="title">{% translate 'Meine Aufgaben' %}</p>
         <div class="tasks">
-            {% for task in tasks_to_do %}
-            <a href="{% url 'task_update' task.pk %}" class="task">
-                <p>{{ task.text }}</p>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div>
-        <p class="title">{% translate 'In Bearbeitung' %}</p>
-        <div class="tasks">
-            {% for task in tasks_in_progress %}
-            <a href="{% url 'task_update' task.pk %}" class="task">
-                <p>{{ task.text }}</p>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div>
-        <p class="title">{% translate 'Erledigt' %}</p>
-        <div class="tasks">
-            {% for task in tasks_done %}
-            <a href="{% url 'task_update' task.pk %}" class="task">
-                <p>{{ task.text }}</p>
-            </a>
+            {% for task in tasks %}
+            <div class="task-grid">
+                <a href="{% url 'task_update' task.pk %}" class="task">
+                    <p>{{ task.text }}</p>
+                </a>
+                <form method="post" action="{% url 'tasks' %}" class="checkbox">
+                    {% csrf_token %}
+                    <input type="hidden" name="task_id" value="{{ task.pk }}">
+                    <input type="checkbox" id="task_{{ task.pk }}" name="task_{{ task.pk }}"
+                        {% if task.status %}checked{% endif %}
+                        onchange="this.form.submit()">
+                </form>
+            </div>
             {% endfor %}
         </div>
     </div>
