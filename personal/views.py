@@ -361,11 +361,15 @@ class AllTasksView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
         tasks = Task.objects.filter(owner=self.request.user)
 
-        context["tasks_to_do"] = tasks.filter(status="not_done")
-        context["tasks_in_progress"] = tasks.filter(status="in_progress")
-        context["tasks_done"] = tasks.filter(status="done")
-
+        context["tasks"] = tasks
         return context
+
+    def post(self, request, *args, **kwargs):
+        task_id = request.POST.get("task_id")
+        task = Task.objects.get(pk=task_id, owner=self.request.user)
+        task.status = not task.status  # Toggle the status
+        task.save()
+        return redirect(reverse_lazy("tasks"))
 
 
 class CreateTaskView(LoginRequiredMixin, LegalRequirementMixin, generic.CreateView):
@@ -381,6 +385,8 @@ class CreateTaskView(LoginRequiredMixin, LegalRequirementMixin, generic.CreateVi
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        if "status" in form.cleaned_data:
+            form.instance.status = bool(form.cleaned_data["status"])
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -401,6 +407,8 @@ class UpdateTaskView(LoginRequiredMixin, LegalRequirementMixin, generic.UpdateVi
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        if "status" in form.cleaned_data:
+            form.instance.status = bool(form.cleaned_data["status"])
         return super().form_valid(form)
 
     def get_success_url(self):

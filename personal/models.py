@@ -106,18 +106,10 @@ class Note(models.Model):
 
 
 class Task(models.Model):
-    STATUS = [
-        ("not_done", _("Nicht erledigt")),
-        ("in_progress", _("In Bearbeitung")),
-        ("done", _("Erledigt")),
-    ]
-
     text = models.CharField(verbose_name=_("Titel"), max_length=50)
-    status = models.CharField(
+    status = models.BooleanField(
         verbose_name=_("Status"),
-        max_length=20,
-        choices=STATUS,
-        default="not_done",
+        default="false",
     )
 
     owner = models.ForeignKey(

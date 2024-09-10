@@ -59,11 +59,6 @@
                 maxlength="50"
                 {% if operation == "update" %} value="{{ task.text }}" {% endif %}
                 required>
-            <select name="status" required>
-                <option value="not_done" {% if operation == "update" and task.status == 'not_done' %}selected{% endif %}>{% translate 'Nicht erledigt' %}</option>
-                <option value="in_progress" {% if operation == "update" and task.status == 'in_progress' %}selected{% endif %}>{% translate 'In Bearbeitung' %}</option>
-                <option value="done" {% if operation == "update" and task.status == 'done' %}selected{% endif %}>{% translate 'Erledigt' %}</option>
-            </select>
             {% endif %}
             {% if model == "note" %}
             <input
