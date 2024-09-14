@@ -22,7 +22,11 @@
                     <p>{{ item.food.name }}</p>
                 </div>
                 <div class="unit">
+                    {% if not item.unit_per_item %}
+                    <p>{% translate 'Keine Einheit' %}</p>
+                    {% else %}
                     <p>{{ item.unit_per_item }}{{ item.unit }}</p>
+                    {% endif %}
                 </div>
                 <div class="category-item">
                     <img src="{% static 'svgs/category/' %}{{ item.food.section.category.icon }}.svg" alt="{{ item.food.section.category.icon }}" height="100%"/>

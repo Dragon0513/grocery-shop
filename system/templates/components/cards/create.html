@@ -38,7 +38,9 @@
                     placeholder="{% translate 'Menge' %}"
                     {% if operation == "update" %} value="{{ item.quantity }}" {% endif %}
                     required>
-                <select name="unit" required>
+                <p style="margin-bottom: 0" class="color-green">{% translate 'Optional' %}</p>
+                <select name="unit">
+                    <option value="" {% if operation == "update" and item.unit == '' %}selected{% endif %}>{% translate 'Keine Massangaben' %}</option>
                     <option value="kg" {% if operation == "update" and item.unit == 'kg' %}selected{% endif %}>{% translate 'Einheit: KG' %}</option>
                     <option value="g" {% if operation == "update" and item.unit == 'g' %}selected{% endif %}>{% translate 'Einheit: G' %}</option>
                     <option value="mg" {% if operation == "update" and item.unit == 'mg' %}selected{% endif %}>{% translate 'Einheit: MG' %}</option>
@@ -48,8 +50,7 @@
                     type="text"
                     name="unit_per_item"
                     placeholder="{% translate 'Einheit pro Stück' %}"
-                    {% if operation == "update" %} value="{{ item.unit_per_item }}" {% endif %}
-                    required>
+                    {% if operation == "update" %}{% if item.unit_per_item %} value="{{ item.unit_per_item }}"{% else %}value=""{% endif %}{% endif %}>
             {% endif %}
             {% if model == "task" %}
             <input

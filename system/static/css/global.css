@@ -324,7 +324,7 @@ input[type="checkbox"] {
 }
 
 .color-green {
-    color: #00A843;
+    color: #00A843 !important;
 }
 
 .color-red {

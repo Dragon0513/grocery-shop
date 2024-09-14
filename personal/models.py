@@ -64,10 +64,17 @@ class ShoppingListItem(models.Model):
         verbose_name=_("Einheit"),
         max_length=2,
         choices=UNIT_CHOICES,
-        default="kg",
+        default="",
+        blank=True,
+        null=True,
     )
     unit_per_item = models.DecimalField(
-        verbose_name=_("Einheit pro Stück"), max_digits=10, decimal_places=2, default=1
+        verbose_name=_("Einheit pro Stück"),
+        max_digits=10,
+        decimal_places=2,
+        default=1,
+        null=True,
+        blank=True,
     )
     status = models.BooleanField(
         verbose_name=_("Status"),
