@@ -1,0 +1,23 @@
+{% load static %}
+{% load i18n %}
+<div class="card" style="margin-top: 16px">
+    <div class="manage">
+        <div class="symbol">
+            <img src="{% static 'svgs/wrench-cog.svg' %}" height="100%"/>
+        </div>
+        <div class="tag">
+            <p>
+                {% translate 'Admin' %}</p>
+        </div>
+        <div class="text">
+            <p>{% translate 'Rollenverwaltung' %}</p>
+        </div>
+        <div class="edit">
+            <a href="{% url 'update_configuser_role' user.configuser.pk %}">
+                <div class="button background-gray">
+                    <p class="color-white" style="margin: 0 8px;">Bearbeiten</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

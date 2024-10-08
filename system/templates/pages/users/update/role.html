@@ -15,10 +15,7 @@
         {% include 'components/errors/mobile.html' %}
         {% include 'components/header/system.html' with icon_right="cog" icon_right_url="settings" %}
         <main>
-            {% include 'components/cards/user/detail.html' %}
-            {% if request.user.configuser.role.name == "Admin" %}
-                {% include 'components/cards/user/manage.html' %}
-            {% endif %}
+            {% include 'components/cards/user/form_role.html' %}
             {% include 'components/cards/legal.html' %}
         </main>
         {% include 'components/footer/system.html' with page="user_detail" %}

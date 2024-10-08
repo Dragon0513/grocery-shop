@@ -22,6 +22,7 @@ from system.views import (
     SignUpView,
     TermsView,
     UnblockUserView,
+    UpdateConfigUserRole,
 )
 
 from . import views
@@ -60,6 +61,11 @@ urlpatterns = [
         "profile/<int:pk>/remove_friend/",
         RemoveFriendView.as_view(),
         name="remove_friend",
+    ),
+    path(
+        "config/user/<int:pk>/role",
+        UpdateConfigUserRole.as_view(),
+        name="update_configuser_role",
     ),
     path("profile/<int:pk>/block/", BlockUserView.as_view(), name="block_user"),
     path("profile/<int:pk>/unblock/", UnblockUserView.as_view(), name="unblock_user"),

@@ -48,3 +48,33 @@ class LegalUser(models.Model):
 
     def __str__(self):
         return _("Legal User: {username}").format(username=self.user.username)
+
+
+class Role(models.Model):
+    ROLE_CHOICES = [
+        ("Admin", "Admin"),
+        ("Moderator", "Moderator"),
+        ("Premium", "Premium"),
+        ("Verifiziert", "Verifiziert"),
+        ("Standard", "Standard"),
+    ]
+
+    name = models.CharField(
+        max_length=50, choices=ROLE_CHOICES, verbose_name=_("Rolle")
+    )
+    priority = models.IntegerField(verbose_name=_("Stufe"))
+
+    def __str__(self):
+        return f"Role: {self.name}, Stufe: {self.priority}"
+
+
+class ConfigUser(models.Model):
+    role = models.ForeignKey(
+        Role, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("Rolle")
+    )
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+    )
+
+    def __str__(self):
+        return f"{self.user}, {self.role}"
