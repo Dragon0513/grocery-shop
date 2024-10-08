@@ -1,0 +1,22 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+    <form method="post">
+        <div class="header">
+            <h1>{% translate 'Rolle' %}</h1>
+        </div>
+        <div class="main">
+            {% csrf_token %}
+            <select name="role">
+                {% for role in roles %}
+                    <option value="{{ role.id }}" {% if operation == "update" and item.role.id == role.id %}selected{% endif %}>
+                        {{ role.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="action">
+            <button class="btn-form-action" type="submit">{% translate "Aktualisieren" %}</button>
+        </div>
+    </form>
+</div>

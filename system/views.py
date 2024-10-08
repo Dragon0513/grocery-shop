@@ -9,9 +9,9 @@ from django.views import View, generic
 
 from personal.models import Category
 from system.forms import LoginForm, SignUpForm
-from system.models import LegalUser, SocialUser
+from system.models import ConfigUser, LegalUser, Role, SocialUser
 
-from .mixins import BlockedUserRedirectMixin, LegalRequirementMixin
+from .mixins import AdminRequiredMixin, BlockedUserRedirectMixin, LegalRequirementMixin
 
 User = get_user_model()
 
@@ -51,6 +51,11 @@ class SignUpView(generic.CreateView):
         )
         LegalUser.objects.create(
             user=self.object, privacy=False, disclaimer=False, terms=False
+        )
+        default_role = Role.objects.get(name="Standard")
+        ConfigUser.objects.create(
+            user=self.object,
+            role=default_role,
         )
         return response
 
@@ -249,6 +254,34 @@ class RemoveFriendView(LoginRequiredMixin, View):
         return redirect(reverse("profile_detail", kwargs={"pk": pk}))
 
 
+class UpdateConfigUserRole(
+    LoginRequiredMixin, LegalRequirementMixin, AdminRequiredMixin, generic.UpdateView
+):
+    model = ConfigUser
+    fields = []
+    template_name = "pages/users/update/role.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["roles"] = Role.objects.all()
+        context["operation"] = "update"
+        context["item"] = self.object
+        return context
+
+    def form_valid(self, form):
+        role_id = self.request.POST.get("role")
+        if role_id:
+            role = get_object_or_404(Role, id=role_id)
+            self.object.role = role
+        else:
+            self.object.role = None
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("profile_detail", kwargs={"pk": self.object.user.pk})
+
+
 class SearchView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
     model = User
     template_name = "pages/root/search.html"
@@ -271,8 +304,15 @@ class SearchView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
                         "user": user,
                         "is_friend": user in friends,
                         "is_blocked": user in blocked_users,
+                        "priority": (
+                            user.configuser.role.priority
+                            if hasattr(user, "configuser") and user.configuser.role
+                            else 100
+                        ),
                     }
                 )
+
+        users_with_friendship_and_block.sort(key=lambda x: x["priority"], reverse=True)
 
         context["users_list"] = users_with_friendship_and_block
         return context

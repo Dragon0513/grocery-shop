@@ -7,7 +7,21 @@
                 <img src="{% static 'svgs/account-circle.svg' %}" height="100%"/>
             </div>
             <div class="name">
-                <p class="title">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                <p class="title">
+                    {{ request.user.first_name }} {{ request.user.last_name }}
+                    {% if request.user.configuser.role.name == "Verifiziert" %}
+                            <img class="batch" src="{% static 'svgs/batch/verified.svg' %}" height="100%"/>
+                    {% endif %}
+                    {% if request.user.configuser.role.name == "Premium" %}
+                            <img class="batch" src="{% static 'svgs/batch/premium.svg' %}" height="100%"/>
+                    {% endif %}
+                    {% if request.user.configuser.role.name == "Moderator" %}
+                            <img class="batch" src="{% static 'svgs/batch/moderator.svg' %}" height="100%"/>
+                    {% endif %}
+                    {% if request.user.configuser.role.name == "Admin" %}
+                            <img class="batch" src="{% static 'svgs/batch/admin.svg' %}" height="100%"/>
+                    {% endif %}
+                </p>
                 <p>@{{ request.user.username }}</p>
             </div>
         </div>

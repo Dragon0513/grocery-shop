@@ -116,6 +116,83 @@ input[type="checkbox"] {
     font-size: 1.2rem;
 }
 
+.name .batch {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.card .manage {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "symbol tag edit"
+        "symbol text edit";
+    height: 64px;
+    grid-row-gap: 8px;
+    grid-column-gap: 4px;
+}
+
+.card .manage p {
+    margin: 0;
+}
+
+.card .manage .symbol,
+.card .manage .tag,
+.card .manage .text,
+.card .manage .edit {
+    display: flex;
+}
+
+.card .manage .symbol {
+    grid-area: symbol;
+    align-items: center;
+    justify-content: center;
+}
+
+.card .manage .symbol img {
+    height: 32px;
+    width: 32px;
+}
+
+.card .manage .tag {
+    grid-area: tag;
+    display: flex;
+    align-items: end;
+}
+
+.card .manage .tag p {
+    font-size: 0.5rem !important;
+    background-color: #A70000;
+    border-radius: 4px;
+    padding: 4px;
+    color: white;
+    font-weight: bold;
+}
+
+.card .manage .text {
+    grid-area: text;
+}
+
+.card .manage .edit {
+    grid-area: edit;
+    align-items: center;
+    padding: 12px;
+}
+
+.card .manage .tag img {
+    height: 16px;
+    width: 16px;
+}
+
+.card .profile-container .profile .name .title .batch {
+    width: 16px !important;
+    height: 16px !important;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 4px;
+}
+
 .card .profile-container .profile .name p {
     margin: 0;
     display: flex;
