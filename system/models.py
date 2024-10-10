@@ -73,7 +73,10 @@ class ConfigUser(models.Model):
         Role, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("Rolle")
     )
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("Benutzer"),
+        related_name="config",
     )
 
     def __str__(self):
