@@ -2,16 +2,21 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import View, generic
 
 from personal.models import Category
 from system.forms import LoginForm, SignUpForm
-from system.models import ConfigUser, LegalUser, Role, SocialUser
+from system.models import ConfigUser, LegalUser, Role, SocialUser, Warning
 
-from .mixins import AdminRequiredMixin, BlockedUserRedirectMixin, LegalRequirementMixin
+from .mixins import (
+    AdminRequiredMixin,
+    BlockedUserRedirectMixin,
+    LegalRequirementMixin,
+    ModeratorRequiredMixin,
+)
 
 User = get_user_model()
 
@@ -114,11 +119,14 @@ class DetailUserView(
         is_friend_request_received = user in current_user_social.received_requests.all()
         is_blocked = user in current_user_social.blocked.all()
 
+        warning_count = user.warnings.count()
+
         context["friends"] = user_social.friends.count()
         context["is_friend"] = is_friend
         context["is_friend_request_sent"] = is_friend_request_sent
         context["is_friend_request_received"] = is_friend_request_received
         context["is_blocked"] = is_blocked
+        context["warning_count"] = warning_count
         return context
 
 
@@ -254,6 +262,77 @@ class RemoveFriendView(LoginRequiredMixin, View):
         return redirect(reverse("profile_detail", kwargs={"pk": pk}))
 
 
+class WarningsUserView(
+    LoginRequiredMixin,
+    LegalRequirementMixin,
+    ModeratorRequiredMixin,
+    generic.DeleteView,
+):
+    model = User
+    fields = []
+    template_name = "pages/users/warnings.html"
+    login_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.get_object()
+        warnings = Warning.objects.filter(user=user)
+
+        context["warnings"] = warnings
+        context["object"] = user
+
+        return context
+
+
+class CreateWarningView(
+    LoginRequiredMixin,
+    LegalRequirementMixin,
+    ModeratorRequiredMixin,
+    generic.CreateView,
+):
+    model = Warning
+    fields = ["category", "message"]
+    template_name = "pages/users/update/warning.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.user = User.objects.get(pk=self.kwargs["pk"])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("profile_warnings", kwargs={"pk": self.object.user.pk})
+
+
+class UpdateWarningView(
+    LoginRequiredMixin,
+    LegalRequirementMixin,
+    ModeratorRequiredMixin,
+    generic.UpdateView,
+):
+    model = Warning
+    fields = ["category", "message"]
+    template_name = "pages/users/update/warning.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["operation"] = "update"
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "profile_warnings",
+            kwargs={"pk": self.object.user.pk},
+        )
+
+
 class UpdateConfigUserRole(
     LoginRequiredMixin, LegalRequirementMixin, AdminRequiredMixin, generic.UpdateView
 ):
@@ -290,6 +369,12 @@ class SearchView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         users = User.objects.exclude(id=self.request.user.id)
+
+        users = (
+            User.objects.exclude(id=self.request.user.id)
+            .annotate(warning_count=Count("warnings"))
+            .filter(warning_count__lt=3)
+        )
 
         current_user_social = SocialUser.objects.get(user=self.request.user)
         friends = current_user_social.friends.all()

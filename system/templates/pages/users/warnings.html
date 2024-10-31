@@ -13,16 +13,10 @@
     </head>
     <body>
         {% include 'components/errors/mobile.html' %}
-        {% include 'components/header/system.html' with icon_right="cog" icon_right_url="settings" %}
+        {% include 'components/header/system.html' with icon_right="plus" icon_right_url="profile_warnings_create" icon_right_pk=object.pk %}
         <main>
-            {% include 'components/cards/user/detail.html' %}
-            {% if request.user.config.role.name == "Admin" %}
-                {% include 'components/cards/user/manage.html' %}
-            {% endif %}
-            {% if request.user.config.role.name == "Admin" or request.user.config.role.name == "Moderator" %}
-                {% include 'components/cards/user/moderate.html' %}
-            {% endif %}
+            {% include 'components/grid/warning.html' %}
             {% include 'components/cards/legal.html' %}
+            {% include 'components/footer/system.html' with page="user_warning" %}
         </main>
-        {% include 'components/footer/system.html' with page="user_detail" %}
     </body>

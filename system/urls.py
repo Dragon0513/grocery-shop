@@ -5,6 +5,7 @@ from system.views import (
     AccountView,
     BlockUserView,
     CancelFriendRequestView,
+    CreateWarningView,
     DeclineFriendRequestView,
     DetailUserFriendsView,
     DetailUserView,
@@ -23,6 +24,8 @@ from system.views import (
     TermsView,
     UnblockUserView,
     UpdateConfigUserRole,
+    UpdateWarningView,
+    WarningsUserView,
 )
 
 from . import views
@@ -61,6 +64,19 @@ urlpatterns = [
         "profile/<int:pk>/remove_friend/",
         RemoveFriendView.as_view(),
         name="remove_friend",
+    ),
+    path(
+        "profile/<int:pk>/warnings", WarningsUserView.as_view(), name="profile_warnings"
+    ),
+    path(
+        "profile/<int:pk>/warnings/create",
+        CreateWarningView.as_view(),
+        name="profile_warnings_create",
+    ),
+    path(
+        "profile/<int:user_id>/warnings/<int:pk>/update",
+        UpdateWarningView.as_view(),
+        name="profile_warnings_update",
     ),
     path(
         "config/user/<int:pk>/role",

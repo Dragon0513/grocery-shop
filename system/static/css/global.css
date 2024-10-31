@@ -121,7 +121,8 @@ input[type="checkbox"] {
     height: 12px !important;
 }
 
-.card .manage {
+.card .manage,
+.card .moderate {
     display: grid;
     grid-template-columns: 64px 1fr auto;
     grid-template-rows: 1fr 1fr;
@@ -133,29 +134,37 @@ input[type="checkbox"] {
     grid-column-gap: 4px;
 }
 
-.card .manage p {
+.card .manage p,
+.card .moderate p {
     margin: 0;
 }
 
 .card .manage .symbol,
 .card .manage .tag,
 .card .manage .text,
-.card .manage .edit {
+.card .manage .edit,
+.card .moderate .symbol,
+.card .moderate .tag,
+.card .moderate .text,
+.card .moderate .edit {
     display: flex;
 }
 
-.card .manage .symbol {
+.card .manage .symbol,
+.card .moderate .symbol {
     grid-area: symbol;
     align-items: center;
     justify-content: center;
 }
 
-.card .manage .symbol img {
+.card .manage .symbol img,
+.card .moderate .symbol img {
     height: 32px;
     width: 32px;
 }
 
-.card .manage .tag {
+.card .manage .tag,
+.card .moderate .tag {
     grid-area: tag;
     display: flex;
     align-items: end;
@@ -170,17 +179,29 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-.card .manage .text {
+.card .moderate .tag p {
+    font-size: 0.5rem !important;
+    background-color: #FF9E9E;
+    border-radius: 4px;
+    padding: 4px;
+    color: white;
+    font-weight: bold;
+}
+
+.card .manage .text,
+.card .moderate .text {
     grid-area: text;
 }
 
-.card .manage .edit {
+.card .manage .edit,
+.card .moderate .edit {
     grid-area: edit;
     align-items: center;
     padding: 12px;
 }
 
-.card .manage .tag img {
+.card .manage .tag img,
+.card .moderate .tag img {
     height: 16px;
     width: 16px;
 }
@@ -666,6 +687,53 @@ input[type="checkbox"] {
     text-decoration: none;
 }
 
+.warnings .warning {
+    grid-area: warning;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(79, 56, 56, 0.1) 0px 4px 12px;
+    display: flex;
+    margin: 16px 0;
+    color: #717171;
+    min-height: 64px;
+    display: grid;
+    grid-template-columns: 64px auto auto;
+    grid-template-rows: 8px 24px 24px auto 24px 8px;
+    grid-template-areas:
+        ". . ."
+        "icon category ."
+        "icon message ."
+        "icon message ."
+        "icon author author"
+        ". . .";
+    text-decoration: none;
+}
+
+.warnings .warning .category {
+    grid-area: category;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.warnings .warning .message {
+    grid-area: message;
+    display: flex;
+    align-items: center;
+}
+
+.warnings .warning .author {
+    grid-area: author;
+    display: flex;
+    justify-content: right;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.warnings .warning .author p {
+    margin-right: 8px;
+}
+
 .notifications .notification {
     background-color: white;
     border-radius: 10px;
@@ -738,7 +806,8 @@ input[type="checkbox"] {
 .lists .list .icon,
 .shared_users .shared_user .icon,
 .search_users .search_user .icon,
-.notifications .notification .icon {
+.notifications .notification .icon,
+.warnings .warning .icon {
     grid-area: icon;
     display: flex;
     align-items: center;
@@ -749,7 +818,8 @@ input[type="checkbox"] {
 .lists .list .icon img,
 .shared_users .shared_user img,
 .search_users .search_user img,
-.notifications .notification img {
+.notifications .notification img,
+.warnings .warning img {
     height: 32px;
     width: 32px;
 }
