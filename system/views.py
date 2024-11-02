@@ -390,8 +390,8 @@ class SearchView(LoginRequiredMixin, LegalRequirementMixin, generic.ListView):
                         "is_friend": user in friends,
                         "is_blocked": user in blocked_users,
                         "priority": (
-                            user.configuser.role.priority
-                            if hasattr(user, "configuser") and user.configuser.role
+                            user.config.role.priority
+                            if hasattr(user, "config") and user.config.role
                             else 100
                         ),
                     }
