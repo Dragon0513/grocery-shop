@@ -8,18 +8,22 @@
             </div>
             <div class="name">
                 <p class="title">
-                    {{ user.first_name }} {{ user.last_name }}
-                    {% if user.configuser.role.name == "Verifiziert" %}
-                        <img class="batch" src="{% static 'svgs/batch/verified.svg' %}" height="100%"/>
-                    {% endif %}
-                    {% if user.configuser.role.name == "Premium" %}
-                        <img class="batch" src="{% static 'svgs/batch/premium.svg' %}" height="100%"/>
-                    {% endif %}
-                    {% if user.configuser.role.name == "Moderator" %}
-                        <img class="batch" src="{% static 'svgs/batch/moderator.svg' %}" height="100%"/>
-                    {% endif %}
-                    {% if user.configuser.role.name == "Admin" %}
-                        <img class="batch" src="{% static 'svgs/batch/admin.svg' %}" height="100%"/>
+                    {% if warning_count < 3 %}
+                        {{ user.first_name }} {{ user.last_name }}
+                        {% if user.config.role.name == "Verifiziert" %}
+                            <img class="batch" src="{% static 'svgs/batch/verified.svg' %}" height="100%"/>
+                        {% endif %}
+                        {% if user.config.role.name == "Premium" %}
+                            <img class="batch" src="{% static 'svgs/batch/premium.svg' %}" height="100%"/>
+                        {% endif %}
+                        {% if user.config.role.name == "Moderator" %}
+                            <img class="batch" src="{% static 'svgs/batch/moderator.svg' %}" height="100%"/>
+                        {% endif %}
+                        {% if user.config.role.name == "Admin" %}
+                            <img class="batch" src="{% static 'svgs/batch/admin.svg' %}" height="100%"/>
+                        {% endif %}
+                    {% else %}
+                        {% translate 'Konto gesperrt' %}
                     {% endif %}
                 </p>
                 <p>@{{ user.username }}&nbsp;{% if is_friend %}<span class="color-green">{% translate '(Freund)' %}</span>{% endif %}{% if is_blocked %}<span class="color-red">{% translate '(Blockiert)' %}</span>{% endif %}</p>
@@ -27,39 +31,47 @@
         </div>
     </div>
     <div class="stat">
-        <a href="{% url 'profile_friends' user.pk %}" class="friends">
-            <p class="title">{% translate 'Freunde' %}</p>
-            <p>{{ friends }}</p>
-        </a>
+        {% if warning_count < 3%}
+            <a href="{% url 'profile_friends' user.pk %}" class="friends">
+                <p class="title">{% translate 'Freunde' %}</p>
+                <p>{{ friends }}</p>
+            </a>
+        {% else %}
+            <div class="friends">
+                <p class="title">{% translate 'Freunde' %}</p>
+                <p>-</p>
+            </div>
+        {% endif %}
         <div class="achievements">
             <p class="title">{% translate 'Errungenschaften' %}</p>
             <p>-</p>
         </div>
     </div>
+    {% if warning_count < 3 %}
     <div class="social-action">
         <div class="request">
-            {% if is_friend %}
-                <form action="{% url 'remove_friend' user.pk %}" method="post">
-                    {% csrf_token %}
-                    <button class="background-green" type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Befreundet' %}</button>
-                </form>
-            {% elif is_friend_request_sent and not is_blocked %}
-                <form action="{% url 'cancel_friend_request' user.pk %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Angefragt' %}</button>
-                </form>
-            {% else %}
-                {% if not is_blocked %}
-                    <form action="{% url 'send_friend_request' user.pk %}" method="post">
+                {% if is_friend %}
+                    <form action="{% url 'remove_friend' user.pk %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Anfragen' %}</button>
+                        <button class="background-green" type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Befreundet' %}</button>
+                    </form>
+                {% elif is_friend_request_sent and not is_blocked %}
+                    <form action="{% url 'cancel_friend_request' user.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Angefragt' %}</button>
                     </form>
                 {% else %}
-                    <div>
-                        <button class="button" type="submit" disabled>{% translate 'Anfragen' %}</button>
-                    </div>
+                    {% if not is_blocked %}
+                        <form action="{% url 'send_friend_request' user.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" {% if is_blocked %}disabled{% endif %}>{% translate 'Anfragen' %}</button>
+                        </form>
+                    {% else %}
+                        <div>
+                            <button class="button" type="submit" disabled>{% translate 'Anfragen' %}</button>
+                        </div>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
         </div>
         <div class="block">
             {% if is_blocked %}
@@ -75,5 +87,5 @@
             {% endif %}
         </div>
     </div>
-
+    {% endif %}
 </div>

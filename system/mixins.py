@@ -33,6 +33,13 @@ class BlockedUserRedirectMixin:
 
 class AdminRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
-        if request.user.configuser.role.name != "Admin":
+        if request.user.config.role.name != "Admin":
             return HttpResponseRedirect(reverse("home"))
         return super().dispatch(request, *args, **kwargs)
+
+
+class ModeratorRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.config.role.name in ["Admin", "Moderator"]:
+            return super().dispatch(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse("home"))

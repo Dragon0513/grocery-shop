@@ -9,16 +9,16 @@
             <div class="name">
                 <p class="title">
                     {{ request.user.first_name }} {{ request.user.last_name }}
-                    {% if request.user.configuser.role.name == "Verifiziert" %}
+                    {% if request.user.config.role.name == "Verifiziert" %}
                             <img class="batch" src="{% static 'svgs/batch/verified.svg' %}" height="100%"/>
                     {% endif %}
-                    {% if request.user.configuser.role.name == "Premium" %}
+                    {% if request.user.config.role.name == "Premium" %}
                             <img class="batch" src="{% static 'svgs/batch/premium.svg' %}" height="100%"/>
                     {% endif %}
-                    {% if request.user.configuser.role.name == "Moderator" %}
+                    {% if request.user.config.role.name == "Moderator" %}
                             <img class="batch" src="{% static 'svgs/batch/moderator.svg' %}" height="100%"/>
                     {% endif %}
-                    {% if request.user.configuser.role.name == "Admin" %}
+                    {% if request.user.config.role.name == "Admin" %}
                             <img class="batch" src="{% static 'svgs/batch/admin.svg' %}" height="100%"/>
                     {% endif %}
                 </p>

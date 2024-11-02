@@ -73,8 +73,60 @@ class ConfigUser(models.Model):
         Role, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("Rolle")
     )
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, verbose_name=_("Benutzer")
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("Benutzer"),
+        related_name="config",
     )
 
     def __str__(self):
         return f"{self.user}, {self.role}"
+
+
+class Warning(models.Model):
+    class Reason(models.TextChoices):
+        ABUSE = "ABUSE", _("Missbrauch von Privilegien")
+        ANTISEMITISM = "ANTISEMITISM", _("Antisemitismus")
+        BLACKMAILING = "BLACKMAILING", _("Erpressung")
+        BULLYING = "BULLYING", _("Cybermobbing")
+        CHRISTOPHOBIA = "CHRISTOPHOBIA", _("Christophobie")
+        COW = "COW", _("Unangemessene Wortwahl")
+        DISCRIMINATION = "DISCRIMINATION", _("Diskriminierung")
+        DOXXING = "DOXXING", _("Doxxing")
+        EXPLOITATIVE_CONTENT = "EXPLOITATIVE_CONTENT", _("Ausbeuterische Inhalte")
+        FASCISM = "FASCISM", _("Faschismus")
+        GROOMING = "GROOMING", _("Cybergrooming")
+        HARASSMENT = "HARASSMENT", _("Belästigung")
+        HATESPEECH = "HATESPEECH", _("Hassrede")
+        HOMOPHOBIA = "HOMOPHOBIA", _("Homophobie")
+        ILLEGAL_CONTENT = "ILLEGAL_CONTENT", _("Illegale Inhalte")
+        ISLAMOPHOBIA = "ISLAMOPHOBIA", _("Islamophobie")
+        MISINFORMATION = "MISINFORMATION", _("Falschinformationen")
+        PROPAGANDA = "PROPAGANDA", _("Propaganda")
+        RACISM = "RACISM", _("Rassismus")
+        RELATIVISATION = "RELATIVISATION", _("Relativierung")
+        SCAM = "SCAM", _("Betrug")
+        SEXISM = "SEXISM", _("Sexismus")
+        SPAM = "SPAM", _("Spam")
+        SWEARWORD = "SWEARWORD", _("Beleidigung")
+        THREAT = "THREAT", _("Drohung")
+        VIOLENT_CONTENT = "VIOLENT_CONTENT", _("Gewaltbasierter Inhalt")
+        WHATABOUTISM = "WHATABOUTISM", _("Whataboutismus")
+        XENOPHOBIA = "XENOPHOBIA", _("Fremdenfeindlichkeit")
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="warnings")
+    category = models.CharField(
+        max_length=50,
+        choices=Reason.choices,
+        default=Reason.ABUSE,
+    )
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="warned")
+
+    message = models.TextField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at", "author"]
+
+    def __str__(self):
+        return f"{self.author} warned {self.user} for {self.category}"

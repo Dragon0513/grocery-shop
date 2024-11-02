@@ -33,7 +33,11 @@
             </a>
         {% endif %}
     {% elif icon_right == 'plus' %}
-        {% if icon_right_url %}
+        {% if icon_right_url and icon_right_pk %}
+        <a href="{% url icon_right_url icon_right_pk %}" class="icon-right">
+            <img src="{% static 'svgs/plus.svg' %}" height="100%"/>
+        </a>
+        {% elif icon_right_url %}
         <a href="{% url icon_right_url %}" class="icon-right">
             <img src="{% static 'svgs/plus.svg' %}" height="100%"/>
         </a>

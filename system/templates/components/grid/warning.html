@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+<div class="personal">
+    <p class="title">
+        {% translate 'Verwarnungen von' %} {{ object.first_name }} {{ object.last_name }}
+    </p>
+    <div class="warnings">
+        {% for warning in warnings %}
+            <a href="{% url 'profile_warnings_update' warning.user.id warning.id %}" class="warning">
+                <div class="icon">
+                    <img src="{% static 'svgs/alert.svg' %}" height="100%"/>
+                </div>
+                <div class="category">
+                    <p>{{ warning.category }}</p>
+                </div>
+                <div class="message">
+                    <p>{{ warning.message }}</p>
+                </div>
+                <div class="author">
+                    <p>{% translate 'Verwarnt von' %} @{{ warning.author }}</p>
+                </div>
+            </a>
+        {% empty %}
+            <p>{% translate 'Keine Verwarnungen' %}</p>
+        {% endfor %}
+    </div>
+</div>

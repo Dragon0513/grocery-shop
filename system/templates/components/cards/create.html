@@ -85,6 +85,19 @@
                 <option value="purple" {% if operation == "update" and note.color == 'purple' %}selected{% endif %}>{% translate 'Violett' %}</option>
             </select>
             {% endif %}
+            {% if model == "warning" %}
+            <p class="color-red">{% translate "Hinweis: Eine Verwarnung kann nicht mehr gelöscht werden." %}</p>
+            <select name="category">
+                {% for key, value in form.category.field.choices %}
+                    <option value="{{ key }}" {% if key == form.category.value %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+            <input
+                type="text"
+                name="message"
+                placeholder="{% translate 'Beschreibung' %}"
+                {% if operation == "update" %}{% if warning.message %} value="{{ warning.message }}"{% else %}value=""{% endif %}{% endif %}>
+            {% endif %}
         </div>
         <div class="action">
             {% if operation == "update" %}

@@ -1,19 +1,19 @@
 {% load static %}
 {% load i18n %}
 <div class="card" style="margin-top: 16px">
-    <div class="manage">
+    <div class="moderate">
         <div class="symbol">
-            <img src="{% static 'svgs/wrench-cog.svg' %}" height="100%"/>
+            <img src="{% static 'svgs/account-alert.svg' %}" height="100%"/>
         </div>
         <div class="tag">
             <p>
-                {% translate 'Admin' %}</p>
+                {% translate 'Moderator' %}</p>
         </div>
         <div class="text">
-            <p>{% translate 'Rollenverwaltung' %}</p>
+            <p>{% translate 'Verwarnungszentrale' %}</p>
         </div>
         <div class="edit">
-            <a href="{% url 'update_configuser_role' user.config.pk %}">
+            <a href="{% url 'profile_warnings' user.pk %}">
                 <div class="button background-gray">
                     <p class="color-white" style="margin: 0 8px;">{% translate 'Bearbeiten' %}</p>
                 </div>
